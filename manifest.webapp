@@ -1,0 +1,17 @@
+{
+	"name": "TextAction",
+	"launch_path": "app.html",
+	"version": "0.1",
+	"release_notes": "First release",
+	"installs_allowed_from": ["*"],
+	"type": "certified",
+	"permissions": {
+    	"systemXHR": {}
+	},
+	"icons": {
+		"16": "/res/ic_launcher_144.png",
+		"32": "/res/ic_launcher_144.png",
+		"256": "/res/ic_launcher_144.png"
+	}
+}
+
