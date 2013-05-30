@@ -44,7 +44,7 @@ function draw() {
 
 function erase() {
 	ctx.clearRect(0, 0, w, h);
-	document.getElementById("canvasimg").style.display = "none";
+	//document.getElementById("canvas").style.display = "none";
 	timeoutId = 0;
 
 }
@@ -65,7 +65,7 @@ function findxy(res, e) {
 		dot_flag = true;
 		if (dot_flag) {
 			ctx.beginPath();
-			ctx.fillStyle = x;
+			ctx.fillStyle = 'black';
 			ctx.fillRect(currX, currY, 2, 2);
 			ctx.closePath();
 			dot_flag = false;
