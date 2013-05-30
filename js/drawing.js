@@ -2,6 +2,8 @@
  * @author P10717
  */
 var canvas, ctx, flag = false, prevX = 0, currX = 0, prevY = 0, currY = 0, dot_flag = false;
+var recogTimeout = 500;
+var timeoutId = 0;
 
 window.onload = function() {
 	init();
@@ -42,29 +44,40 @@ function draw() {
 
 function erase() {
 	ctx.clearRect(0, 0, w, h);
-	document.getElementById("canvasimg").style.display = "none";
+	//document.getElementById("canvas").style.display = "none";
+	timeoutId = 0;
 
 }
 
-function findxy(res, e) {
+function findxy(res, e) {		
 	if (res == 'down') {
 		prevX = currX;
 		prevY = currY;
 		currX = e.clientX - canvas.offsetLeft;
 		currY = e.clientY - canvas.offsetTop;
 
+		if (timeoutId != 0) {
+			clearTimeout(timeoutId);
+			timeoutId = 0;
+		}
+		
 		flag = true;
 		dot_flag = true;
 		if (dot_flag) {
 			ctx.beginPath();
-			ctx.fillStyle = x;
+			ctx.fillStyle = 'black';
 			ctx.fillRect(currX, currY, 2, 2);
 			ctx.closePath();
 			dot_flag = false;
 		}
 	}
 	if (res == 'up' || res == "out") {
-		flag = false;
+		flag = false;		
+		if (timeoutId == 0) {
+			timeoutId = setTimeout(function() {
+				erase();
+			}, recogTimeout);
+		}
 	}
 	if (res == 'move') {
 		if (flag) {
