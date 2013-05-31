@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <script src="js/drawing.js"></script>
-        <title>TextAction</title>
-    </head>
-    <body>
-    	<h2>TextAction FX</h2>
-    	<input id="editText" type="text"/>
-        <canvas id="canvas" width="300" height="420">        	
-        </canvas>
-    </body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>TextAction</title>
+	</head>
+	<body>
+		<div id="drawarea" style="border:1px solid black;position:absolute;height: 420px;width: 300px">			
+		</div>
+		<div id="outputbox">
+		</div>
+		<script src="js/jquery-2.0.2.js"></script>
+		<script src="js/wz_jsgraphics.js"></script>
+		<script src="js/jquery.fancygestures.js"></script>				
+		<script src="js/action.js"></script>
+	</body>
 </html>
