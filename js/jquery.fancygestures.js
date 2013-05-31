@@ -28,6 +28,8 @@ THE SOFTWARE.
 
 */
 
+var isWatingForNextInput = false;
+
 (function($){   
   
   $.fn.fancygestures = function(callbackfunction){   
@@ -37,7 +39,7 @@ THE SOFTWARE.
 		// Add new gestures here
 		// gestures["RETURNDATA"] = "MOUSESEQUENCE";
 
-		gestures["A"] = "53";
+		gestures["A"] = "53,71,310";
 		gestures["B"] = "260123401234";
 		gestures["C"] = "43210";
 		gestures["D"] = "26701234";
@@ -45,11 +47,11 @@ THE SOFTWARE.
 		gestures["F"] = "42";
 		gestures["G"] = "432107650";
 		gestures["H"] = "267012";
-		gestures["I"] = "6";
+		gestures["I"] = "6,2";
 		gestures["J"] = "234";
 		gestures["K"] = "3456701";
-		gestures["L"] = "46";
-		gestures["M"] = "6172";
+		gestures["L"] = "46,20";
+		gestures["M"] = "6172,7171";
 		gestures["N"] = "616";
 		gestures["O"] = "432107654";
 		gestures["P"] = "670123456";
@@ -58,13 +60,38 @@ THE SOFTWARE.
 		gestures["S"] = "432101234";
 		gestures["T"] = "02";
 		gestures["U"] = "21076";
-		gestures["V"] = "35";
-		gestures["W"] = "2716";
+		gestures["V"] = "35,17";
+		gestures["W"] = "2716,2727";
 		gestures["X"] = "1076543";
 		gestures["Y"] = "21076234567";
 		gestures["Z"] = "030";
+		
 		gestures[" "] = "0";
-		gestures["?"] = "6701232";
+		
+		gestures["~"] = "670107,701076"
+	//	gestures["!"] =
+		gestures["@"] = "6432107213456701234"
+	//	gestures["#"] =	
+	//	gestures["$"] = 
+	//	gestures["%"] =
+	//	gestures["^"] =		
+		gestures["&"] = "023456707654321"
+	//	gestures["?"] = "6701232";
+		gestures["<"] = "31";
+		gestures[">"] = "13";
+		gestures["["] = "420";
+		gestures["]"] = "024";
+		
+		gestures["1"] = "37240"
+		gestures["2"] = "67012340"
+		gestures["3"] = "70123401234"
+		gestures["4"] = "302"
+		gestures["5"] = "2701234"
+		gestures["6"] = "43210765432,32106543"
+		gestures["7"] = "602,3670123"
+		gestures["8"] = "43210123456765,5670123432107654,07654321012345670"
+		gestures["9"] = "543210762,23456702"
+		gestures["0"] = "43210765421"
 		
 		// Color & Width of Stroke
 		var color = "#666666";
@@ -83,6 +110,7 @@ THE SOFTWARE.
 		var anglesMap = new Array;
 		var step = Math.PI*2/100;
 		var sector;
+		var timer;
 
 		for (var i = -sectorRad/2; i<=Math.PI*2-sectorRad/2; i+=step){
 			sector=Math.floor((i+sectorRad/2)/sectorRad);
@@ -97,6 +125,7 @@ THE SOFTWARE.
 		initialize();
 
 		$(element).mousedown(function(event) {
+			clearInterval(timer);
 			recording = true;
 			graphics.clear();
 			graphics.paint();
@@ -129,28 +158,31 @@ THE SOFTWARE.
 		});
 
 		$(element).mouseup(function(e) {
+			recognitionStart();
+		});
+		
+		function recognitionStart() {
 			recording = false;
 			result = 100000;
 			letter = '';
 
 			for (x in gestures) {
-				matchMove = gestures[x].split('');
-				res = costLeven (matchMove,moves);
-
-				if (res < result && res < 30) {		
-					result = res;
-					letter = x;
+				matchMove = gestures[x].split(',');
+				for(y in matchMove) {
+					res = costLeven (matchMove[y],moves);
+					if (res < result && res < 30) {		
+						result = res;
+						letter = x;
+					}
 				}
 			}
-
+			
 			callbackfunction(letter);
-
 			moves = new Array(0);
 			lastPositionX = 0;
 			lastPositionY = 0;
-		});
-
-
+		}
+		
 		function addMove(dx,dy) {
 			var angle = Math.atan2(dy,dx)+sectorRad/2;
 			if (angle<0) angle+=Math.PI*2;
@@ -172,9 +204,11 @@ THE SOFTWARE.
 			}
 			return o;
 		}
-				
+		
+		// a : pattern data , b : input character pattern		
 		function costLeven(a,b){
-			
+			console.log(a);
+			console.log(b);
 			if (a[0]==-1){
 				return b.length==0 ? 0 : 100000;
 			}
