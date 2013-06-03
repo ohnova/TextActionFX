@@ -30,7 +30,7 @@ THE SOFTWARE.
 
 var isWatingForNextInput = false;
 var recognitionTimer;
-
+var strokeCount = 0;
 
 (function($){   
   
@@ -38,64 +38,65 @@ var recognitionTimer;
 	
 		var gestures = new Array();
 
-		// Add new gestures here
-		// gestures["RETURNDATA"] = "MOUSESEQUENCE";
-
-		gestures["A"] = "53,71,310,210";
-		gestures["B"] = "260123401234";
-		gestures["C"] = "43210";
-		gestures["D"] = "201234";
-		gestures["E"] = "043210";
-		gestures["F"] = "0320,420";
-		gestures["G"] = "5432107602";
-		gestures["H"] = "202";
-		gestures["I"] = "020";
-		gestures["J"] = "0323456";
-		gestures["K"] = "3456701";
-		gestures["L"] = "46,20";
-		gestures["M"] = "217672";
-		gestures["N"] = "216,62176,2106";
-		gestures["O"] = "432107654";
-		gestures["P"] = "670123456";  	// TODO same pattern "D"
-		gestures["Q"] = "43210765431";  // TODO same pattern "0, O"
-		gestures["R"] = "267012341,201234310";
-		gestures["S"] = "432101234";
-		gestures["T"] = "02";
-		gestures["U"] = "21076";
-		gestures["V"] = "35,17";
-		gestures["W"] = "2716,2727";
-		gestures["X"] = "31,13";
-		gestures["Y"] = "1032,32102";
-		gestures["Z"] = "030";
+		// new gesture data type 
+		// (Pattern * StrokeCount)[0] , (Pattern * StrokeCount)[1], ...
+		gestures["A"] = "310*3,210*3,710*2,610*2";
+		gestures["B"] = "260123401234*2";
+		gestures["C"] = "43210*1";
+		gestures["D"] = "201234*2";
+		gestures["E"] = "043210*3,020*3"; // TODO same pattern "F"
+		gestures["F"] = "020*3,220*3,420*2";
+		gestures["G"] = "5432107602*3";
+		gestures["H"] = "202*3";
+		gestures["I"] = "2*1";
+		gestures["J"] = "0323456*2";
+		gestures["K"] = "271*3";
+		gestures["L"] = "46*1,20*1";
+		gestures["M"] = "6172*1,217672*2";
+		gestures["N"] = "616*1,216*2";
+		gestures["O"] = "432107654*1";
+		gestures["P"] = "670123456*2";    // TODO same pattern "D"
+		gestures["Q"] = "43210765431*2";  // TODO same pattern "0, O"
+		gestures["R"] = "267012341*2,201234310*2";
+		gestures["S"] = "432101234*1";
+		gestures["T"] = "02*2";
+		gestures["U"] = "21076*1";
+		gestures["V"] = "17*1";
+		gestures["W"] = "2716*1,2727*1";
+		gestures["X"] = "31*2,13*2";
+		gestures["Y"] = "1032,32102*2";
+		gestures["Z"] = "030*1";
 		
-		gestures["~"] = "670107,701076"
-	//	gestures["!"] =
-		gestures["@"] = "6432107213456701234"
-	//	gestures["#"] =	
-	//	gestures["$"] = 
-	//	gestures["%"] =
-	//	gestures["^"] =		
-		gestures["&"] = "023456707654321"
-	//	gestures["?"] = "6701232";
-	//	gestures["<"] = "31";     	//TODO same pattern X
-	//	gestures[">"] = "13";		//TODO same pattern X
-		gestures["["] = "420";
-		gestures["]"] = "024";
+		gestures["~"] = "670107*1,701076*1";
+		gestures["!"] = "22*2";
+		gestures["@"] = "6432107213456701234*1,6543210762134567012*1,6432107213456701234*2,6543210762134567012*2";
+		gestures["#"] =	"0022*4,2200*4";
+		gestures["$"] = "4321012342*2";
+		gestures["%"] = "322*3";
+		gestures["^"] =	"71*1";	
+		gestures["&"] = "023456707654321*1, 023456707654321*2"
+		gestures["?"] = "6701232*2";
+		gestures["<"] = "31*1";     	//TODO same pattern X
+		gestures[">"] = "13*1";			//TODO same pattern X
+		gestures["["] = "420*1";
+		gestures["]"] = "024*1";
 		
-		gestures["+"] = "20,02"
-		gestures["="] = "00"
-		gestures["-"] = "0";
+		gestures["*"] = "310*3,130*3,013*3" //TODO same pattern A
+		gestures["+"] = "20*2,02*2"
+		gestures["="] = "00*2"
+		gestures["-"] = "0*1";
+		gestures["/"] = "3*1";
 		
-		gestures["1"] = "37240"
-		gestures["2"] = "67012340"
-		gestures["3"] = "70123401234"
-		gestures["4"] = "302"
-		gestures["5"] = "2701234"
-		gestures["6"] = "43210765432,32106543"
-		gestures["7"] = "602,3670123"
-		gestures["8"] = "43210123456765,5670123432107654,07654321012345670"
-		gestures["9"] = "543210762,23456702"
-		gestures["0"] = "43210765421"
+		gestures["1"] = "37240*1"
+		gestures["2"] = "67012340*1"
+		gestures["3"] = "70123401234*1"
+		gestures["4"] = "302*2"
+		gestures["5"] = "27012340*2,427012345*1"
+		gestures["6"] = "43210765432*1,32106543*1"
+		gestures["7"] = "2102*2,202*2,02*1,3670123*1"
+		gestures["8"] = "43210123456765*1,5670123432107654*1,07654321012345670*1"
+		gestures["9"] = "543210762*1,23456702*1"
+		gestures["0"] = "43210765421*1"
 		
 		// Color & Width of Stroke
 		var color = "#666666";
@@ -129,7 +130,7 @@ var recognitionTimer;
 		initialize();
 
 		$(element).mousedown(function(event) {
-			console.log("mousedown()");
+			// console.log("mousedown()");
 			clearInterval(recognitionTimer);
 			recording = true;
 			
@@ -141,7 +142,7 @@ var recognitionTimer;
 		});
 
 		$(element).mousemove(function(event) {
-			console.log("mousemove()");
+			// console.log("mousemove()");
 			if(recording == true) {
 				var msx = (event.clientX-position.left);
 				var msy = (event.clientY-position.top);
@@ -165,7 +166,8 @@ var recognitionTimer;
 		});
 
 		$(element).mouseup(function(e) {
-			console.log("mouseup()");
+			// console.log("mouseup()");
+			strokeCount++;
 			recording = false;
 			recognitionTimer = setInterval(function () { 
 	       	 	recognitionStart();
@@ -176,16 +178,20 @@ var recognitionTimer;
 		
 		function recognitionStart() {
 			// recording = false;
-			
 			console.log(moves);
 			result = 100000;
 			letter = '';
 			
 			for (x in gestures) {
-				matchMove = gestures[x].split(',');
+				matchMove = gestures[x].split(",");
+				
 				for(y in matchMove) {
-					res = costLeven (matchMove[y],moves);
-					if (res < result && res < 30) {		
+					matchData = matchMove[y].split("*");
+					matchStroke = matchData[1];
+					// console.log("matchStroke = "+ matchStroke);
+					// console.log("strokeCount = "+ strokeCount);
+					res = costLeven (matchData[0],moves);
+					if (res < result && res < 30 && strokeCount == matchStroke) {		
 						result = res;
 						letter = x;
 					}
@@ -199,6 +205,7 @@ var recognitionTimer;
 			
 		 	graphics.clear();
 			graphics.paint();
+			strokeCount = 0;
 		}
 		
 		function addMove(dx,dy) {
