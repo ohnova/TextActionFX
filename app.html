@@ -3,6 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>TextAction</title>
+		<link rel="resource" type="application/l10n" href="locales/locales.ini">
 	</head>
 	<body>
 		<div id="drawarea" style="border:1px solid black;position:absolute;height: 420px;width: 300px">			
@@ -13,5 +14,34 @@
 		<script src="js/wz_jsgraphics.js"></script>
 		<script src="js/jquery.fancygestures.js"></script>				
 		<script src="js/action.js"></script>
+		
+		        <section class="setting">
+        	<header class="setting_header">
+        		<a href="<" class="header_left_btn"></a>
+        		<h1 class="setting_header">SettinG</h1>
+        	</header>
+        	<section class="setting_area"> 
+        		<li>
+        			<a data-l10n-id="setting-command-setting" class="setting_list_item setting_command">CommanD SettinG</a>
+        		</li>	
+        		<li>
+        			<span data-l10n-id="setting-search-engine" class="setting_list_item setting_engine">SearcH EnginE</span>
+        			<select class="setting_engine">
+        				<option value="google" data-l10n-id="setting-search-engine-google">GooglE</option>
+        				<option value="naver" data-l10n-id="setting-search-engine-naver">NaveR</option>
+        			</select>
+        		</li>
+        		<li>
+        			<span data-l10n-id="setting-word-suggestion" class="setting_list_item setting_suggestion">WorD SuggestionS</span>
+        			<label>
+        				<input disabled type="checkbox" checked="checked">
+        			</label>
+        		</li>
+        		<li>
+        			<a data-l10n-id="setting-textaction-guide" class="setting_list_item setting_guide">TextActioN GuidE</a>
+        		</li>
+        	</section>
+        </section>
+		
 	</body>
 </html>
