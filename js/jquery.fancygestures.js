@@ -68,8 +68,6 @@ var recognitionTimer;
 		gestures["Y"] = "1032,32102";
 		gestures["Z"] = "030";
 		
-		
-		
 		gestures["~"] = "670107,701076"
 	//	gestures["!"] =
 		gestures["@"] = "6432107213456701234"
@@ -247,7 +245,7 @@ var recognitionTimer;
 			var cost=0;
 			var pa;
 			var pb;
-			var pc;
+			var pc;$
 
 			for (x=1;x<=a.length;x++){
 				for (y=1;y<b.length;y++){
