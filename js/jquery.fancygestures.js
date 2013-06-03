@@ -29,6 +29,8 @@ THE SOFTWARE.
 */
 
 var isWatingForNextInput = false;
+var recognitionTimer;
+
 
 (function($){   
   
@@ -39,34 +41,34 @@ var isWatingForNextInput = false;
 		// Add new gestures here
 		// gestures["RETURNDATA"] = "MOUSESEQUENCE";
 
-		gestures["A"] = "53,71,310";
+		gestures["A"] = "53,71,310,210";
 		gestures["B"] = "260123401234";
 		gestures["C"] = "43210";
-		gestures["D"] = "26701234";
-		gestures["E"] = "4321043210";
-		gestures["F"] = "42";
-		gestures["G"] = "432107650";
-		gestures["H"] = "267012";
-		gestures["I"] = "6,2";
-		gestures["J"] = "234";
+		gestures["D"] = "201234";
+		gestures["E"] = "043210";
+		gestures["F"] = "0320,420";
+		gestures["G"] = "5432107602";
+		gestures["H"] = "202";
+		gestures["I"] = "020";
+		gestures["J"] = "0323456";
 		gestures["K"] = "3456701";
 		gestures["L"] = "46,20";
-		gestures["M"] = "6172,7171";
-		gestures["N"] = "616";
+		gestures["M"] = "217672";
+		gestures["N"] = "216,62176,2106";
 		gestures["O"] = "432107654";
-		gestures["P"] = "670123456";
-		gestures["Q"] = "4321076540";
-		gestures["R"] = "267012341";
+		gestures["P"] = "670123456";  	// TODO same pattern "D"
+		gestures["Q"] = "43210765431";  // TODO same pattern "0, O"
+		gestures["R"] = "267012341,201234310";
 		gestures["S"] = "432101234";
 		gestures["T"] = "02";
 		gestures["U"] = "21076";
 		gestures["V"] = "35,17";
 		gestures["W"] = "2716,2727";
-		gestures["X"] = "1076543";
-		gestures["Y"] = "21076234567";
+		gestures["X"] = "31,13";
+		gestures["Y"] = "1032,32102";
 		gestures["Z"] = "030";
 		
-		gestures[" "] = "0";
+		
 		
 		gestures["~"] = "670107,701076"
 	//	gestures["!"] =
@@ -77,10 +79,14 @@ var isWatingForNextInput = false;
 	//	gestures["^"] =		
 		gestures["&"] = "023456707654321"
 	//	gestures["?"] = "6701232";
-		gestures["<"] = "31";
-		gestures[">"] = "13";
+	//	gestures["<"] = "31";     	//TODO same pattern X
+	//	gestures[">"] = "13";		//TODO same pattern X
 		gestures["["] = "420";
 		gestures["]"] = "024";
+		
+		gestures["+"] = "20,02"
+		gestures["="] = "00"
+		gestures["-"] = "0";
 		
 		gestures["1"] = "37240"
 		gestures["2"] = "67012340"
@@ -125,16 +131,19 @@ var isWatingForNextInput = false;
 		initialize();
 
 		$(element).mousedown(function(event) {
-			clearInterval(timer);
+			console.log("mousedown()");
+			clearInterval(recognitionTimer);
 			recording = true;
-			graphics.clear();
-			graphics.paint();
+			
+			// graphics.clear();
+			// graphics.paint();
 
 			lastPositionX = event.clientX-position.left;
 			lastPositionY = event.clientY-position.top;	
 		});
 
 		$(element).mousemove(function(event) {
+			console.log("mousemove()");
 			if(recording == true) {
 				var msx = (event.clientX-position.left);
 				var msy = (event.clientY-position.top);
@@ -158,14 +167,22 @@ var isWatingForNextInput = false;
 		});
 
 		$(element).mouseup(function(e) {
-			recognitionStart();
+			console.log("mouseup()");
+			recording = false;
+			recognitionTimer = setInterval(function () { 
+	       	 	recognitionStart();
+	       	 	clearInterval(recognitionTimer);	
+     	   	}, 500);
+			
 		});
 		
 		function recognitionStart() {
-			recording = false;
+			// recording = false;
+			
+			console.log(moves);
 			result = 100000;
 			letter = '';
-
+			
 			for (x in gestures) {
 				matchMove = gestures[x].split(',');
 				for(y in matchMove) {
@@ -181,6 +198,9 @@ var isWatingForNextInput = false;
 			moves = new Array(0);
 			lastPositionX = 0;
 			lastPositionY = 0;
+			
+		 	graphics.clear();
+			graphics.paint();
 		}
 		
 		function addMove(dx,dy) {
@@ -207,8 +227,6 @@ var isWatingForNextInput = false;
 		
 		// a : pattern data , b : input character pattern		
 		function costLeven(a,b){
-			console.log(a);
-			console.log(b);
 			if (a[0]==-1){
 				return b.length==0 ? 0 : 100000;
 			}
