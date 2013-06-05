@@ -1,14 +1,51 @@
 var actionCheckTimer;
 var EnableSuggestionButtons = true;
 
-$(document).ready(function () {   
+
+$(document).ready(function() {
 	// element' HTML value initialization.
-	$("#outputbox").html("");
-	$("#suggestion_buttons").hide();
+
+	$("#outputbox").val("");
+	$("#clear_button").click(function() {
+		$("#outputbox").val("");
+	});
 	
-	$('#drawarea').fancygestures(function (letter, letter_backup1, letter_backup2, letter_backup3) {
+	$("#suggestion_buttons").hide();
+	$("#letter_backup1").click(function() {
+		var str = $("#outputbox").val();
+		console.log(str);
+		$("#outputbox").val(str.substring(0, str.length - 1) + letter_backup1);
+		$("#suggestion_buttons").hide();
+		actionCheck($("#outputbox").val());
+	});
+	$("#letter_backup2").click(function() {
+		var str = $("#outputbox").val();
+		console.log(str);
+		$("#outputbox").val(str.substring(0, str.length - 1) + letter_backup2);
+		$("#suggestion_buttons").hide();
+		actionCheck($("#outputbox").val());
+	});
+	$("#letter_backup3").click(function() {
+		var str = $("#outputbox").val();
+		console.log(str);
+		$("#outputbox").val(str.substring(0, str.length - 1) + letter_backup3);
+		$("#suggestion_buttons").hide();
+		actionCheck($("#outputbox").val());
+	});
+	
+
+	$('#drawarea').fancygestures(function(letter, letter_backup1, letter_backup2, letter_backup3) {
+		callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3);
+	});
+})
+
+function initUiElements() {
+	
+}
+
+function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3) {
 		// document.getElementById('outputbox').innerHTML += letter;
-		$("#outputbox").html($("#outputbox").html()+letter);
+		$("#outputbox").val($("#outputbox").val()+letter);
 		
 		if(actionCheckTimer != null) {
 			clearInterval(actionCheckTimer);				
@@ -20,34 +57,14 @@ $(document).ready(function () {
 			$("#letter_backup1").val(letter_backup1);
 			$("#letter_backup2").val(letter_backup2);
 			$("#letter_backup3").val(letter_backup3);
-			
-			$("#letter_backup1").click(function() {
-				var str = $("#outputbox").html();
-				console.log(str);
-				$("#outputbox").html(str.substring(0, str.length-1)+letter_backup1);
-				$("#suggestion_buttons").hide();
-			});
-			$("#letter_backup2").click(function() {
-				var str = $("#outputbox").html();
-				console.log(str);
-				$("#outputbox").html(str.substring(0, str.length-1)+letter_backup2);
-				$("#suggestion_buttons").hide();
-			});
-			$("#letter_backup3").click(function() {
-				var str = $("#outputbox").html();
-				console.log(str);
-				$("#outputbox").html(str.substring(0, str.length-1)+letter_backup3);
-				$("#suggestion_buttons").hide();
-			});
-			
 		}
 		
 		actionCheckTimer = setInterval(function () { 
-       	 	actionCheck(document.getElementById('outputbox').innerHTML);
+       	 	actionCheck($("#outputbox").val());
        	 	clearInterval(actionCheckTimer);	
-        }, 1000);
-	})
-})
+        }, 500);
+}
+	
 
 function actionCheck(data) {
 	console.log("[action.js] : actionCheck(): data = " + data);
@@ -57,14 +74,14 @@ function actionCheck(data) {
 		
 	}
 	// __2. check last char
-	if(data.length > 1) {
-		var lastChar = data.charAt(data.length -1);
+	if(data.length > 0) {
+		var lastChar = data.charAt(data.length-1);
 	
 		if("Y" == lastChar) {
-			// TODO action Youtube 
-		}
-	
-		if("=" == lastChar) {
+			actionYouTube(data);
+		} else if("?" == lastChar) {
+			actionBrowser(data);
+		} else if("=" == lastChar) {
 			if(isRightFormula(data) == true) {
 				console.log("isRightFormula : true ")
 				var result = actionCalculator(data);
@@ -74,13 +91,31 @@ function actionCheck(data) {
 		}
 	}
 }
+
+function actionYouTube(data) {
+	if("Y" == data) {
+		alert("TODO : Start YouTube Application");
+	} else {
+		keyword = data.substring(0,data.length-1);
+		alert("TODO : Start YouTube Application & Search "+keyword);
+	}
+}
+
+function actionBrowser(data) {
+	if("Y" == data) {
+		alert("TODO : Start Browser Application");
+	} else {
+		keyword = data.substring(0,data.length-1);
+		alert("TODO : Start Browser Application & Search "+keyword);
+	}
+}
  
 function actionCalculator(data) {
 	console.log("[action.js] : actionCalculator()")
 	var elements = devideByToken(data);
 	
 	var result = calculateElement(elements);
-	$("#outputbox").html(result);
+	$("#outputbox").val(result);
 }
 
 function calculate(num1, symbol, num2){
