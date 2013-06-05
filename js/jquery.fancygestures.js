@@ -55,7 +55,7 @@ var strokeCount = 0;
 		gestures["M"] = "6172*1,217672*2";
 		gestures["N"] = "616*1,216*2";
 		gestures["O"] = "432107654*1";
-		gestures["P"] = "670123456*2";    // TODO same pattern "D"
+		gestures["P"] = "201234*2";    // TODO same pattern "D"
 		gestures["Q"] = "43210765431*2";  // TODO same pattern "0, O"
 		gestures["R"] = "267012341*2,201234310*2";
 		gestures["S"] = "432101234*1";
@@ -182,6 +182,14 @@ var strokeCount = 0;
 			result = 100000;
 			letter = '';
 			
+			result_backup1 = 100000;
+			result_backup2 = 100000;
+			result_backup3 = 100000;
+			
+			letter_backup1 = '';
+			letter_backup2 = '';
+			letter_backup3 = '';
+			
 			for (x in gestures) {
 				matchMove = gestures[x].split(",");
 				
@@ -191,14 +199,38 @@ var strokeCount = 0;
 					// console.log("matchStroke = "+ matchStroke);
 					// console.log("strokeCount = "+ strokeCount);
 					res = costLeven (matchData[0],moves);
-					if (res < result && res < 30 && strokeCount == matchStroke) {		
+					
+					if(res <= result_backup1) {
+						result_backup3 = result_backup2;
+						result_backup2 = result_backup1;
+						result_backup1 = res;
+						letter_backup3 = letter_backup2;
+						letter_backup2 = letter_backup1;
+						letter_backup1 = x;
+					}
+					if(res > result_backup1 && res <= result_backup2) {
+						result_backup3 = result_backup2;
+						result_backup2 = res;
+						letter_backup3 = letter_backup2;
+						letter_backup2 = x;
+					}
+					if(res > result_backup2 && res <= result_backup3) {
+						result_backup3 = res;
+						letter_backup3 = x;
+					}
+					
+					if (res <= result && res < 30 && strokeCount == matchStroke) {		
+						// letter_backup3 = letter_backup2;
+						// letter_backup2 = letter_backup1;
+						// letter_backup1 = letter;
 						result = res;
 						letter = x;
+						console.log("letter = " + letter + "result = " + result);
 					}
 				}
 			}
 			
-			callbackfunction(letter);
+			callbackfunction(letter,letter_backup1,letter_backup2,letter_backup3);
 			moves = new Array(0);
 			lastPositionX = 0;
 			lastPositionY = 0;
@@ -263,7 +295,7 @@ var strokeCount = 0;
 					w[x][y]=Math.min(Math.min(pa,pb),pc)
 				}
 			}
-
+			console.log("a =" + a + " b =" + b + " :: " + w[x-1][y-1]);
 			return w[x-1][y-1];
 		}		
 	};   

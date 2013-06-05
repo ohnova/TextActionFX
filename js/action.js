@@ -1,14 +1,46 @@
 var actionCheckTimer;
+var EnableSuggestionButtons = true;
 
 $(document).ready(function () {   
 	// element' HTML value initialization.
 	$("#outputbox").html("");
+	$("#suggestion_buttons").hide();
 	
-	$('#drawarea').fancygestures(function (data) {
-		document.getElementById('outputbox').innerHTML += data;
+	$('#drawarea').fancygestures(function (letter, letter_backup1, letter_backup2, letter_backup3) {
+		// document.getElementById('outputbox').innerHTML += letter;
+		$("#outputbox").html($("#outputbox").html()+letter);
+		
 		if(actionCheckTimer != null) {
 			clearInterval(actionCheckTimer);				
 		}		
+		
+		if(EnableSuggestionButtons == true) {
+			console.log(letter + " / " + letter_backup1 + " / " + letter_backup2 + " / " + letter_backup3);
+			$("#suggestion_buttons").show();
+			$("#letter_backup1").val(letter_backup1);
+			$("#letter_backup2").val(letter_backup2);
+			$("#letter_backup3").val(letter_backup3);
+			
+			$("#letter_backup1").click(function() {
+				var str = $("#outputbox").html();
+				console.log(str);
+				$("#outputbox").html(str.substring(0, str.length-1)+letter_backup1);
+				$("#suggestion_buttons").hide();
+			});
+			$("#letter_backup2").click(function() {
+				var str = $("#outputbox").html();
+				console.log(str);
+				$("#outputbox").html(str.substring(0, str.length-1)+letter_backup2);
+				$("#suggestion_buttons").hide();
+			});
+			$("#letter_backup3").click(function() {
+				var str = $("#outputbox").html();
+				console.log(str);
+				$("#outputbox").html(str.substring(0, str.length-1)+letter_backup3);
+				$("#suggestion_buttons").hide();
+			});
+			
+		}
 		
 		actionCheckTimer = setInterval(function () { 
        	 	actionCheck(document.getElementById('outputbox').innerHTML);
