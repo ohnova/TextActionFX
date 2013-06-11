@@ -6,12 +6,16 @@
 		<link rel="resource" type="application/l10n" href="locales/locales.ini">
 	</head>
 	<body>
-		<div id="outputbox"></div>
+		<div>
+			<input type="text" id="outputbox" style="width:230px">
+			<input type="button" id="clear_button" value="clear" style="width:50px">
+		</div>
+		<div id="suggestion_buttons">
+			<input type="button" id="letter_backup1" value="" style="width:90px">
+			<input type="button" id="letter_backup2" value="" style="width:90px">
+			<input type="button" id="letter_backup3" value="" style="width:90px">
+		</div>
 		<div id="drawarea" style="border:1px solid black;position:relative;height: 420px;width: 300px"></div>
-		<script src="js/jquery-2.0.2.js"></script>
-		<script src="js/wz_jsgraphics.js"></script>
-		<script src="js/jquery.fancygestures.js"></script>
-		<script src="js/action.js"></script>
 
 		<section class="setting">
 			<header class="setting_header">
@@ -40,6 +44,11 @@
 				</li>
 			</section>
 		</section>
-
+		
+		
+		<script src="js/jquery-2.0.2.js"></script>
+		<script src="js/wz_jsgraphics.js"></script>
+		<script src="js/jquery.fancygestures.js"></script>
+		<script src="js/action.js"></script>
 	</body>
 </html>
