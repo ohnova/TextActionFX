@@ -90,7 +90,7 @@ function actionCheck(data) {
 	if(data.length > 0) {
 		var lastChar = data.charAt(data.length-1);
 	
-		if("Y" == lastChar) {
+		if("Y" == lastChar || "y" == lastChar) {
 			actionYouTube(data);
 		} else if("?" == lastChar) {
 			actionBrowser(data);
@@ -113,8 +113,16 @@ function actionCheck(data) {
 	}
 }
 
+function actionSMS(data) {
+		// TESTING ... it's not working...
+		// SMS object
+		var sms = window.navigator.mozSms;
+		// Send a message
+		sms.send("123456789", "Hello world!");
+}
+
 function actionYouTube(data) {
-	if("Y" == data) {
+	if(data.length == 1) {
 		alert("TODO : Start YouTube Application");
 	} else {
 		keyword = data.substring(0,data.length-1);
@@ -123,18 +131,8 @@ function actionYouTube(data) {
 }
 
 function actionBrowser(data) {
-	if("?" == data) {
+	if(data.length == 1) {
 		alert("TODO : Start Browser Application");
-		// navigator.mozApps.mgmt.launch({"required":true, "regexp":"/^https?:.{1,16384}$/"},function() {},function (){} )
-		
-		// SMS object
-		var sms = window.navigator.mozSms;
-		// Send a message
-		sms.send("123456789", "Hello world!");
-		
-		//var battery = navigator.mozBattery;
-		//alert(battery.level);
-		
 	} else {
 		keyword = data.substring(0,data.length-1);
 		alert("TODO : Start Browser Application & Search "+keyword);
