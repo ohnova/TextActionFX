@@ -2,12 +2,16 @@ var actionCheckTimer;
 var EnableSuggestionButtons = true;
 
 
+
 $(document).ready(function() {
 	// element' HTML value initialization.
+	// var a = navigator.mozL10n.language.code;
+	// console("a = " + a);
 
-	$("#outputbox").val("");
+	$("#outputbox").val(""); 
 	$("#clear_button").click(function() {
 		$("#outputbox").val("");
+		$("#suggestion_buttons").hide();
 	});
 	
 	$("#suggestion_buttons").hide();
@@ -34,7 +38,8 @@ $(document).ready(function() {
 	});
 	
 
-	$('#drawarea').fancygestures(function(letter, letter_backup1, letter_backup2, letter_backup3) {
+	$('#drawarea').fancygestures(
+		function(letter, letter_backup1, letter_backup2, letter_backup3) {
 		callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3);
 	});
 })
@@ -102,8 +107,18 @@ function actionYouTube(data) {
 }
 
 function actionBrowser(data) {
-	if("Y" == data) {
+	if("?" == data) {
 		alert("TODO : Start Browser Application");
+		// navigator.mozApps.mgmt.launch({"required":true, "regexp":"/^https?:.{1,16384}$/"},function() {},function (){} )
+		
+		// SMS object
+		var sms = window.navigator.mozSms;
+		// Send a message
+		sms.send("123456789", "Hello world!");
+		
+		//var battery = navigator.mozBattery;
+		//alert(battery.level);
+		
 	} else {
 		keyword = data.substring(0,data.length-1);
 		alert("TODO : Start Browser Application & Search "+keyword);
@@ -172,6 +187,8 @@ function devideByToken(data) {
 		}
 		start=end+1;
 	}
+	
+	
 	return elements;
 }
 
