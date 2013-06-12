@@ -2,12 +2,16 @@ var actionCheckTimer;
 var EnableSuggestionButtons = true;
 
 
+
 $(document).ready(function() {
 	// element' HTML value initialization.
+	// var a = navigator.mozL10n.language.code;
+	// console("a = " + a);
 
-	$("#outputbox").val("");
+	$("#outputbox").val(""); 
 	$("#clear_button").click(function() {
 		$("#outputbox").val("");
+		$("#suggestion_buttons").hide();
 	});
 	
 	$("#suggestion_buttons").hide();
@@ -34,7 +38,8 @@ $(document).ready(function() {
 	});
 	
 
-	$('#drawarea').fancygestures(function(letter, letter_backup1, letter_backup2, letter_backup3) {
+	$('#drawarea').fancygestures(
+		function(letter, letter_backup1, letter_backup2, letter_backup3) {
 		callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3);
 	});
 })
@@ -85,7 +90,7 @@ function actionCheck(data) {
 	if(data.length > 0) {
 		var lastChar = data.charAt(data.length-1);
 	
-		if("Y" == lastChar) {
+		if("Y" == lastChar || "y" == lastChar) {
 			actionYouTube(data);
 		} else if("?" == lastChar) {
 			actionBrowser(data);
@@ -108,8 +113,16 @@ function actionCheck(data) {
 	}
 }
 
+function actionSMS(data) {
+		// TESTING ... it's not working...
+		// SMS object
+		var sms = window.navigator.mozSms;
+		// Send a message
+		sms.send("123456789", "Hello world!");
+}
+
 function actionYouTube(data) {
-	if("Y" == data) {
+	if(data.length == 1) {
 		alert("TODO : Start YouTube Application");
 	} else {
 		keyword = data.substring(0,data.length-1);
@@ -118,7 +131,7 @@ function actionYouTube(data) {
 }
 
 function actionBrowser(data) {
-	if("Y" == data) {
+	if(data.length == 1) {
 		alert("TODO : Start Browser Application");
 	} else {
 		keyword = data.substring(0,data.length-1);
@@ -188,6 +201,8 @@ function devideByToken(data) {
 		}
 		start=end+1;
 	}
+	
+	
 	return elements;
 }
 
