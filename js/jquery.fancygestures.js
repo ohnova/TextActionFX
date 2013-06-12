@@ -38,8 +38,9 @@ var strokeCount = 0;
 	
 		var gestures = new Array();
 
-		// new gesture data type 
 		// (Pattern * StrokeCount)[0] , (Pattern * StrokeCount)[1], ...
+		
+		// upper case
 		gestures["A"] = "310*3,210*3,710*2,610*2";
 		gestures["B"] = "260123401234*2";
 		gestures["C"] = "43210*1";
@@ -62,11 +63,40 @@ var strokeCount = 0;
 		gestures["T"] = "02*2";
 		gestures["U"] = "21076*1";
 		gestures["V"] = "17*1";
-		gestures["W"] = "2716*1,2727*1";
+		gestures["W"] = "2716*1,2727*1,21767121217676*1";
 		gestures["X"] = "31*2,13*2";
 		gestures["Y"] = "1032,32102*2";
 		gestures["Z"] = "030*1";
 		
+		// lower case
+		gestures["a"] = "6543210621*1";
+		gestures["b"] = "26701234*1";
+		gestures["c"] = "43210*1"; // TODO same pattern "C"
+		gestures["d"] = "54321076*1,543210762*1";
+		gestures["e"] = "065432107*1";
+		gestures["f"] = "654320*1,54320*1";
+		gestures["g"] = "54321076523456*1";
+		gestures["h"] = "267012*1";
+		gestures["i"] = "22*2";
+		gestures["j"] = "123456*2";	
+		gestures["k"] = "271*3,26730*1";
+		gestures["l"] = "0765321*1";
+		gestures["m"] = "01236701267012*1";
+		gestures["n"] = "01267012*1"; // // TODO same pattern "m, h"
+		gestures["o"] = "432107654*1";
+		gestures["p"] = "26701234*1";
+		gestures["q"] = "654321076232071*1";
+		gestures["r"] = "26701*1";
+		gestures["s"] = "432101234*1"; // // TODO same pattern "S"
+		gestures["t"] = "02107*2";
+		gestures["u"] = "20762*1";
+		gestures["v"] = "17*1";
+		gestures["w"] = "2107621076*1";
+		gestures["x"] = "0123434323210*2";
+		gestures["y"] = "2102*2"
+		gestures["z"] = "03101*2"
+		
+		// symbol
 		gestures["~"] = "670107*1,701076*1";
 		gestures["!"] = "22*2";
 		gestures["@"] = "6432107213456701234*1,6543210762134567012*1,6432107213456701234*2,6543210762134567012*2";
@@ -81,12 +111,14 @@ var strokeCount = 0;
 		gestures["["] = "420*1";
 		gestures["]"] = "024*1";
 		
+		// math symbol
 		gestures["*"] = "310*3,130*3,013*3" //TODO same pattern A
 		gestures["+"] = "20*2,02*2"
 		gestures["="] = "00*2"
 		gestures["-"] = "0*1";
 		gestures["/"] = "3*1";
 		
+		// number
 		gestures["1"] = "37240*1,2*1"
 		gestures["2"] = "67012340*1"
 		gestures["3"] = "70123401234*1"
@@ -98,7 +130,7 @@ var strokeCount = 0;
 		gestures["9"] = "543210762*1,23456702*1"
 		gestures["0"] = "43210765421*1"
 		
-		// Color & Width of Stroke
+		// color & width of stroke
 		var color = "#666666";
 		var strokeWidth = 4;
 
