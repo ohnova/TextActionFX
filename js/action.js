@@ -71,7 +71,15 @@ function actionCheck(data) {
 	
 	// __1. check one char
 	if(data.length == 1) {
-		
+		if ("c" == data || "C" == data) {
+			var call = new MozActivity({
+                name: "dial",
+                data: {
+                     number: ""
+                }
+            });
+            
+		}
 	}
 	// __2. check last char
 	if(data.length > 0) {
@@ -88,6 +96,14 @@ function actionCheck(data) {
 			} else {
 				console.log("isRightFormula : false ")
 			}
+		} else if ("c" == lastChar || "C" == lastChar) {
+			var strNum = data.substr(0, data.length-1);			
+			 var call = new MozActivity({
+                 name: "dial",
+                 data: {
+                     number: strNum
+                 }
+            });
 		}
 	}
 }
