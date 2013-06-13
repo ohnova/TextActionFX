@@ -8,6 +8,8 @@ $(document).ready(function() {
 	// var a = navigator.mozL10n.language.code;
 	// console("a = " + a);
 
+	$(".setting").hide();
+
 	$("#outputbox").val(""); 
 	$("#clear_button").click(function() {
 		$("#outputbox").val("");
@@ -103,40 +105,53 @@ function actionCheck(data) {
 			}
 		} else if ("c" == lastChar || "C" == lastChar) {
 			var strNum = data.substr(0, data.length-1);			
-			 var call = new MozActivity({
+			var call = new MozActivity({
                  name: "dial",
                  data: {
                      number: strNum
                  }
             });
+		} else if( "m" == lastChar || "M" == lastChar) {
+			actionSMS(data);
 		}
 	}
 }
 
 function actionSMS(data) {
-		// TESTING ... it's not working...
-		// SMS object
-		var sms = window.navigator.mozSms;
-		// Send a message
-		sms.send("123456789", "Hello world!");
+		var sms = new MozActivity({
+  			 "name": "new",
+   			 "data": {
+   			 	"type": "websms/sms",
+        	 	"number": "1234"
+   			 }
+		});
 }
 
 function actionYouTube(data) {
 	if(data.length == 1) {
 		alert("TODO : Start YouTube Application");
 	} else {
-		keyword = data.substring(0,data.length-1);
+		var keyword = data.substring(0,data.length-1);
 		alert("TODO : Start YouTube Application & Search "+keyword);
 	}
 }
 
 function actionBrowser(data) {
+	var url_str = "m.naver.com";
 	if(data.length == 1) {
-		alert("TODO : Start Browser Application");
+
 	} else {
-		keyword = data.substring(0,data.length-1);
-		alert("TODO : Start Browser Application & Search "+keyword);
+		var search_keyword = data.substring(0,data.length-1);
+		url_str = "http://m.search.naver.com/search.naver?query="+search_keyword;
 	}
+	
+	var openURL = new MozActivity({
+		"name" : "view",
+		"data" : {
+			"type" : "url",
+			"url" : url_str
+		}
+	}); 
 }
  
 function actionCalculator(data) {
