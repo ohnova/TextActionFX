@@ -1,13 +1,10 @@
-var actionCheckTimer;
+var ActionCheckTimer;
 var EnableSuggestionButtons = true;
-
-
+var TextAction = new TextAction();
 
 $(document).ready(function() {
 	// element' HTML value initialization.
-	// var a = navigator.mozL10n.language.code;
-	// console("a = " + a);
-
+	
 	$(".setting").hide();
 
 	$("#outputbox").val(""); 
@@ -54,8 +51,8 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
 		// document.getElementById('outputbox').innerHTML += letter;
 		$("#outputbox").val($("#outputbox").val()+letter);
 		
-		if(actionCheckTimer != null) {
-			clearInterval(actionCheckTimer);				
+		if(ActionCheckTimer != null) {
+			clearInterval(ActionCheckTimer);				
 		}		
 		
 		if(EnableSuggestionButtons == true) {
@@ -66,9 +63,9 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
 			$("#letter_backup3").val(letter_backup3);
 		}
 		
-		actionCheckTimer = setInterval(function () { 
+		ActionCheckTimer = setInterval(function () { 
        	 	actionCheck($("#outputbox").val());
-       	 	clearInterval(actionCheckTimer);	
+       	 	clearInterval(ActionCheckTimer);	
         }, 500);
 }
 	
@@ -137,19 +134,45 @@ function actionYouTube(data) {
 }
 
 function actionBrowser(data) {
-	var url_str = "m.naver.com";
-	if(data.length == 1) {
-
-	} else {
-		var search_keyword = data.substring(0,data.length-1);
-		url_str = "http://m.search.naver.com/search.naver?query="+search_keyword;
+	// TODO : load browser setting value 
+	var setting = TextAction.indexNaver;
+	var urlString = "";
+	
+	switch (setting) {
+		case TextAction.indexNaver :
+			if(data.length == 1) {
+				urlString = TextAction.urlNaver;
+			} else {
+				var search_keyword = data.substring(0,data.length-1);
+				urlString = TextAction.urlSearchNaver+search_keyword;
+			}
+		break;
+		
+		case TextAction.indexDaum : 
+			if(data.length == 1) {
+				urlString = TextAction.urlDaum;
+			} else {
+				var search_keyword = data.substring(0,data.length-1);
+				urlString = TextAction.urlSerachDaum+search_keyword;
+			}
+		break;
+		
+		case TextAction.indexNate : 
+			if(data.length == 1) {
+				urlString = TextAction.urlNate;
+			} else {
+				var search_keyword = data.substring(0,data.length-1);
+				urlString = TextAction.urlSerachNate+search_keyword;
+			}
+		break;
+		
 	}
 	
 	var openURL = new MozActivity({
 		"name" : "view",
 		"data" : {
 			"type" : "url",
-			"url" : url_str
+			"url" : urlString
 		}
 	}); 
 }
