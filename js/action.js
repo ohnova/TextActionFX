@@ -1,10 +1,9 @@
 var ActionCheckTimer;
 var EnableSuggestionButtons = true;
-var TextAction = new TextAction();
+
 
 $(document).ready(function() {
 	// element' HTML value initialization.
-	
 	$(".setting").hide();
 
 	$("#outputbox").val(""); 
@@ -12,6 +11,22 @@ $(document).ready(function() {
 		$("#outputbox").val("");
 		$("#suggestion_buttons").hide();
 	});
+	
+	$("#language_button").click(function() {
+		if(TextAction.SettingValueLanguage == TextAction.indexAll){
+			TextAction.SettingValueLanguage = TextAction.indexEng;
+			$("#language_button").val("Eng");
+		} 
+		else if(TextAction.SettingValueLanguage == TextAction.indexEng){
+			TextAction.SettingValueLanguage = TextAction.indexNum;
+			$("#language_button").val("Num");
+		} 
+		else if(TextAction.SettingValueLanguage == TextAction.indexNum){
+			TextAction.SettingValueLanguage = TextAction.indexEng;
+			$("#language_button").val("Eng");
+		}
+	});
+	
 	
 	$("#suggestion_buttons").hide();
 	$("#letter_backup1").click(function() {
@@ -71,7 +86,7 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
 	
 
 function actionCheck(data) {
-	console.log("[action.js] : actionCheck(): data = " + data);
+	// console.log("[action.js] : actionCheck(): data = " + data);
 	
 	// __1. check one char
 	if(data.length == 1) {
@@ -126,10 +141,10 @@ function actionSMS(data) {
 
 function actionYouTube(data) {
 	if(data.length == 1) {
-		alert("TODO : Start YouTube Application");
+		// alert("TODO : Start YouTube Application");
 	} else {
 		var keyword = data.substring(0,data.length-1);
-		alert("TODO : Start YouTube Application & Search "+keyword);
+		// alert("TODO : Start YouTube Application & Search "+keyword);
 	}
 }
 
@@ -286,11 +301,11 @@ function getMathSymbolIndexArray(data) {
 
 	// __2. find
 	for (var i = 0; i < data.length; i++) {
-		console.log(i+"->"+data.charAt(i));
+		// console.log(i+"->"+data.charAt(i));
 		var character = data.charAt(i) + "";
 		if ("+" == character || "-" == character || "*" == character || 
 			"/" == character || "x" == character || "X" == character || "=" == character) {
-			console.log("index --> " + i);
+			// console.log("index --> " + i);
 			mathSymbolIndexArray[count] = i;
 			count++;
 		}
