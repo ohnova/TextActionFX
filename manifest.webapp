@@ -9,8 +9,8 @@
     	"systemXHR": {}
 	},
 	"icons": {
-		"16": "/res/ic_launcher_144.png",
-		"32": "/res/ic_launcher_144.png",
-		"256": "/res/ic_launcher_144.png"
+		"16": "style/res/ic_launcher_144.png",
+		"32": "style/res/ic_launcher_144.png",
+		"256":"style/res/ic_launcher_144.png"
 	}
 }
