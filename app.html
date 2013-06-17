@@ -6,6 +6,9 @@
 		<!-- Localization -->
 		<link rel="resource" type="application/l10n" href="locales/locales.ini">
 		
+		<!-- Include text action fx main css -->
+		<link rel="stylesheet" type="text/css" href="style/textaction.css"/>
+		
 	    <!-- Include shared building blocks -->
 		<link rel="stylesheet" type="text/css" href="shared/style/headers.css"/>
 		<link rel="stylesheet" type="text/css" href="shared/style/switches.css"/>
@@ -25,54 +28,42 @@
 		<script type="text/javascript" defer src="js/settings.js"></script>
 		
 		<style>
-		    html, body {
-     		 margin: 0;
-     		 padding: 0;
-     		 font-size: 10px;
-     		 background-color: #fff;
-    		}
-		
-			div.bb-docs {
-     		 	padding: 1rem;
-    		}
+
 		</style>
+		
 	</head>
 	<body role="application">
 		
 		<section role="region">
 			<header>
 				<menu type="toolbar">
-					<a href="#"><span class="icon icon-setting">setting</span></a>
+					<button class="nav-settings-btn"></button>
 				</menu>
 				<h1>TextAction FX</h1>
 			</header>
 		</section>
 		
-		<div style="width:100%;height:100%;" class="bb-docs" align="center">
-       		<textarea style="width:65%; height:30px; float:left;" type="text" id="outputbox" required></textarea>
-       		<button style="width:15%; float:left;" id="clear_button">Clear</button>
-       		<button style="width:15%; float:left;" id="language_button">All</button>
-		<!--<input type="button" id="clear_button" value="clear" style="width:40px">
-			<input type="button" id="language_button" value="All" style="width:40px">-->
-		</div>
-		
-		<div id="suggestion_buttons" style="width:100%;" class="bb-docs" align="center">
-			<button style="width:33%; float:left;" id="letter_backup1"></button>
-			<button style="width:33%; float:left;" id="letter_backup2"></button>
-			<button style="width:33%; float:left;" id="letter_backup3"></button>
-		</div>
-		
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		
-		<div id="drawarea" style="width:100%;height: 420px; border:1px solid black;position:relative; ">
+		<div class="bb-docs" align="center">
+			<div style="width:100%;height:100%;" class="bb-docs">
+	       		<textarea style="width:65%; height:30px; float:left;" type="text" id="outputbox" required></textarea>
+	       		<button style="width:15%; float:left;" id="clear_button">Clear</button>
+	       		<button style="width:15%; float:left;" id="language_button">All</button>
+			<!--<input type="button" id="clear_button" value="clear" style="width:40px">
+				<input type="button" id="language_button" value="All" style="width:40px">-->
+			</div>
 			
+			<div id="suggestion_buttons" style="width:100%;" class="bb-docs">
+				<button style="width:31%; float:left;" id="letter_backup1"></button>
+				<button style="width:31%; float:left;" id="letter_backup2"></button>
+				<button style="width:31%; float:left;" id="letter_backup3"></button>
+			</div>
+			
+			<br><br><br><br><br><br>
+			
+			<div id="drawarea" style="width:80%;height: 420px; border:1px solid black;position:relative;" align="center">
+				
+			</div>
 		</div>
-		
 <!--
 		<section class="setting">
 			<header class="setting_header">
