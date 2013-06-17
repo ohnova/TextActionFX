@@ -4,7 +4,7 @@ var EnableSuggestionButtons = true;
 
 $(document).ready(function() {
 	// element' HTML value initialization.
-	$(".setting").hide();
+	// $(".setting").hide();
 
 	$("#outputbox").val(""); 
 	$("#clear_button").click(function() {
@@ -15,18 +15,17 @@ $(document).ready(function() {
 	$("#language_button").click(function() {
 		if(TextAction.SettingValueLanguage == TextAction.indexAll){
 			TextAction.SettingValueLanguage = TextAction.indexEng;
-			$("#language_button").val("Eng");
+			$("#language_button").html("Eng");
 		} 
 		else if(TextAction.SettingValueLanguage == TextAction.indexEng){
 			TextAction.SettingValueLanguage = TextAction.indexNum;
-			$("#language_button").val("Num");
+			$("#language_button").html("Num");
 		} 
 		else if(TextAction.SettingValueLanguage == TextAction.indexNum){
 			TextAction.SettingValueLanguage = TextAction.indexEng;
-			$("#language_button").val("Eng");
+			$("#language_button").html("Eng");
 		}
 	});
-	
 	
 	$("#suggestion_buttons").hide();
 	$("#letter_backup1").click(function() {
@@ -73,9 +72,9 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
 		if(EnableSuggestionButtons == true) {
 			console.log(letter + " / " + letter_backup1 + " / " + letter_backup2 + " / " + letter_backup3);
 			$("#suggestion_buttons").show();
-			$("#letter_backup1").val(letter_backup1);
-			$("#letter_backup2").val(letter_backup2);
-			$("#letter_backup3").val(letter_backup3);
+			$("#letter_backup1").html(letter_backup1);
+			$("#letter_backup2").html(letter_backup2);
+			$("#letter_backup3").html(letter_backup3);
 		}
 		
 		ActionCheckTimer = setInterval(function () { 
@@ -97,7 +96,6 @@ function actionCheck(data) {
                      number: ""
                 }
             });
-            
 		}
 	}
 	// __2. check last char
