@@ -26,11 +26,6 @@
 		<script type="text/javascript" defer src="js/jquery.fancygestures.js"></script>
 		<script type="text/javascript" defer src="js/action.js"></script>	
 		<script type="text/javascript" defer src="js/settings.js"></script>
-		
-		<style>
-
-		</style>
-		
 	</head>
 	<body role="application">
 		
@@ -64,35 +59,50 @@
 				
 			</div>
 		</div>
-<!--
-		<section class="setting">
+		<section class="setting" style="display:none;">
 			<header class="setting_header">
-				<a href="<" class="header_left_btn"></a>
+				<a href="#" class="header_left_btn"></a>
 				<h1 class="setting_header">Setting</h1>
 			</header>
 			<section class="setting_area">
 				<li>
-					<a href="" data-l10n-id="setting-command-setting" class="setting_list_item setting_command">Command Setting</a>
+					<a href="#" id="setting-command-setting" class="setting_list_item setting_command">Command Setting</a>
 				</li>
 				<li>
 					Search Engine
 					<select id="engine">
-						<option value="google" data-l10n-id="setting-search-engine-google" selected="true">Google</option>
-						<option value="naver" data-l10n-id="setting-search-engine-naver">Naver</option>
+						<option value="google" id="setting-search-engine-google">Google</option>
+						<option value="naver" id="setting-search-engine-naver">Naver</option>
 					</select>
 				</li>
 				<li>
 					<!--<span id="setting-word-suggestion" class="setting_list_item setting_suggestion">WorD SuggestionS</span> -->
-	<!--				<label>
+					<label>
 						Word Suggestions
-						<input type="checkbox" id="wordsuggestion" >
+						<input type="checkbox" id="wordsuggestion">
 					</label>
 				</li>
 				<li>
-					<a href="" data-l10n-id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
+					<a href="#" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
 				</li>
 			</section>
-		</section> -->
+					<div id="setting-command-setting-content">
+			
+			<h1>TextAction Command</h1>
+			<section id="command-content">
+			</section>
+			<button id="command-done">Done</button>
+		</div>
+		
+		<div id="setting-textaction-guide-content" class="setting_list_item setting_guide">
+			<h1 id="#">TextAction Guide</h1>
+			<section id="guide-content">
+			</section>
+			<button id="guide_done">Done</button>
+		</div>
+		</section>
+		
 
+		
 	</body>
 </html>

@@ -1,4 +1,8 @@
-﻿/* function loadLocalStorage() {
+﻿var defaultGesture = '?/c/m/>/y/!/@';
+var savedGesture = '';
+var gesture;
+
+function loadLocalStorage() {
 	
 	if(localStorage.getItem('wordsuggestion') == "true") {
 		document.getElementById('wordsuggestion').checked = true;
@@ -31,6 +35,47 @@ function saveLocalStorageForEngine() {
 	
 }
 
+function LoadFunction() {
+	// reset
+	hideCommand();
+	hideGuide();
+	
+	// init
+	document.getElementById('setting-command-setting').onclick = showCommand;
+	document.getElementById('command-done').onclick = hideCommand;
+	document.getElementById('setting-textaction-guide').onclick = showGuide;
+	document.getElementById('guide_done').onclick = hideGuide;
+}
+function showGuide() {
+	document.getElementById('setting-textaction-guide-content').style.display='block';
+}
+
+function hideGuide() {
+	document.getElementById('setting-textaction-guide-content').style.display='none';
+}
+
+function showCommand() {
+	getGesture();
+	document.getElementById('setting-command-setting-content').style.display='block';
+}
+
+function hideCommand() {
+	document.getElementById('setting-command-setting-content').style.display='none';
+}
+
+function getGesture() {
+	gesture = defaultGesture.split('/');
+	var output = '';
+	
+	output += '<ul>';
+	for(var i=0;i<gesture.length;i++) {
+		output += '<li>'+ gesture[i] +'</li>';
+	}
+	output += '</ul>'
+	
+	document.getElementById('command-content').innerHTML = output;
+}
+
 window.onload = function() {
 	if(window.localStorage) {
 		
@@ -41,4 +86,7 @@ window.onload = function() {
 	} else {
 		alert('fail to save settings');
 	}
-}; */
+	
+
+	LoadFunction();
+};
