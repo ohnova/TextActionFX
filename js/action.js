@@ -1,6 +1,6 @@
 var ActionCheckTimer;
 var EnableSuggestionButtons = true;
-
+var element;
 
 $(document).ready(function() {
 	// element' HTML value initialization.
@@ -107,9 +107,9 @@ function actionCheck(data) {
 		} else if("?" == lastChar) {
 			actionBrowser(data);
 		} else if("=" == lastChar) {
-			if(isRightFormula(data) == true) {
+			if(isRightFormula(data)) {
 				console.log("isRightFormula : true ")
-				var result = actionCalculator(data);
+				actionCalculator(data);
 			} else {
 				console.log("isRightFormula : false ")
 			}
@@ -192,69 +192,111 @@ function actionBrowser(data) {
  
 function actionCalculator(data) {
 	console.log("[action.js] : actionCalculator()")
-	var elements = devideByToken(data);
-	
-	var result = calculateElement(elements);
-	$("#outputbox").val(result);
+
+	//var result = calculateElement();
+	var result = 0;
+	if(devideByToken(data)) result = calculateElement();
+	else {
+		result = document.getElementById('outputbox').value;
+		result = result.substring(0,result.length-1)
+	}
+	document.getElementById('outputbox').value = result;
+
 }
 
-function calculate(num1, symbol, num2){
-	var result;
+function remove (index) {
 
-	if (("+") == symbol) {
-		result = num1 + num2;
-	}
-	else if (("-") == symbol) {
-		result = num1 - num2;
-	}
-	else if (("*") == symbol|| ("x") == symbol || ("X") == symbol) {
-		result = num1 * num2;
-	}
-	else if (("/") == symbol) {
-		result = num1 / num2;
+	var temp = new Array();
+	var length = element.length;
+
+	while(length>index) {
+		var item = element.pop();
+		temp.push(item);
+		length--;
 	}
 	
+	for(var i=temp.length-2;i>=0;i--){
+		element.push(temp[i]);
+	}
+}
+function add (index, data) {
+	var temp = new Array();
+	var length = element.length;
+	
+	while(length>index) {
+		var item = element.pop();
+		temp.push(item);
+		length--;
+	}
+	element.push(data);
+	for(var i=temp.length-1;i>=0;i--){
+		element.push(temp[i]);
+	}
+}
+
+function calculate(val1, val2, symbol) {
+	var result = 0;
+	var num1 = Number(val1);
+	var num2 = Number(val2);
+	if(symbol == '+') result = num1 + num2; 
+	else if(symbol == '-') result = num1 - num2; 
+	else if(symbol == '*' || symbol == 'x' || symbol == 'X') result = num1 * num2; 
+	else if(symbol == '/') result = num1 / num2; 
+
 	return result;
 }
 
-function calculateElement(elements) {
-	var elements_count = elements.length;
-	
-	for(var i = 0; i < elements.length ; i+=2) {
-		if(i+2 <= elements.length) {
-			var result = calculate(elements[i],elements[i+1],elements[i+2]);
-			elements[i+2] = result;	
-			// console.log("i="+i+ "*** "+ result);
-		}
+function calculateElement() {
+	while(element.length != 1) {
+		var num1 = element[0];
+		 remove(0);
+		var symbol = element[0];
+		 remove(0);
+		var num2 = element[0];
+		 remove(0);
+		
+		 add(0, calculate(num1, num2, symbol));
 	}
-	return result;
+	
+	return element[0];
 }
 
 function devideByToken(data) {
-	var mathSymbolIndexArray;
-	var elements = new Array();
-	
-	var elements_count = 0;
-	var start = 0;
-	var end = 0;
-	
-	mathSymbolIndexArray = getMathSymbolIndexArray(data);
-	for(var i=0;i<mathSymbolIndexArray.length;i++) {
-		end = mathSymbolIndexArray[i];
-		var currentToken = data.substring(start,end);
-		
-		// TODO : check analyze token is number 
-		// TODO : "*", "/" priority handling
-		
-		elements[elements_count++] = currentToken;
-		if(data.charAt(end) != "="){
-			elements[elements_count++] = data.charAt(end);	
+
+		element = new Array();
+		var mathSymbolIndexArray = getMathSymbolIndexArray(data);
+
+		var start = 0;
+		var end = 0;
+		for(var i=0;i<mathSymbolIndexArray.length; i++) {			
+			end = mathSymbolIndexArray[i];
+			var character = data.substring(start, end);
+			if(isNaN(character)) return false;
+			if(start !=0 && (element[element.length-1]=='X' || element[element.length-1]=='x' || 
+							 element[element.length-1]=='*' || element[element.length-1]=='/' )) {
+				var symbol = element[element.length-1];
+				element.remove(element.length-1);
+				var num1 = element[element.length-1];
+				element.remove(element.length-1);
+				var num2 = character;
+
+				element.push(calculate(num1, num2, symbol) + '');
+				element.push(data.charAt(end) + '');
+				
+			} else {
+				element.push(character);
+				element.push(data.charAt(end) + '');
+			}
+			start = end + 1;
 		}
-		start=end+1;
-	}
-	
-	
-	return elements;
+		 remove(element.length-1);
+		
+		for(var i=0;i<element.length;i++) {
+			if(element[i] == '=') return false;
+
+		}
+		return true;
+	 
 }
 
 function isRightFormula(data) {
@@ -288,27 +330,25 @@ function isRightFormula(data) {
 }
 
 function getMathSymbolIndexArray(data) {
-	var count = 0;
 	var mathSymbolIndexArray = new Array();
 	
 	// __1. remove newline char & blank & symbol blank
-	data = data.replace("\n", "");
-   	data = data.replace(" ", "");
-   	data = data.replace("	", "");
+	//data = data.replace("\n", "");
+   	//data = data.replace(" ", "");
+   	//data = data.replace("	", "");
+	data = data.replace(/\s/g,'');
 	
 
 	// __2. find
-	for (var i = 0; i < data.length; i++) {
-		// console.log(i+"->"+data.charAt(i));
-		var character = data.charAt(i) + "";
-		if ("+" == character || "-" == character || "*" == character || 
-			"/" == character || "x" == character || "X" == character || "=" == character) {
-			// console.log("index --> " + i);
-			mathSymbolIndexArray[count] = i;
-			count++;
+	for(var i=0;i<data.length;i++) {
+		var character = data.charAt(i);
+		if(character=='+' || character=='-' || character=='*' || character=='/' || character=='=') {
+			mathSymbolIndexArray.push(i);
+			
 		}
 	}
-	
 	return mathSymbolIndexArray;
 }
+
+
 
