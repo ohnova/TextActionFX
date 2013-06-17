@@ -274,7 +274,7 @@ var recognitionTimer;
 				return false;
 			}
 			
-			if(downX > maxMoveX + (canvasWidth / 15)) {
+			if(downX > maxMoveX + (canvasWidth / 20)) {
 				// console.log("** downX > maxMoveX");
 				return true;
 			}
