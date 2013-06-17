@@ -6,27 +6,65 @@
 		<!-- Localization -->
 		<link rel="resource" type="application/l10n" href="locales/locales.ini">
 		
+		<!-- Include text action fx main css -->
+		<link rel="stylesheet" type="text/css" href="style/textaction.css"/>
+		
+	    <!-- Include shared building blocks -->
+		<link rel="stylesheet" type="text/css" href="shared/style/headers.css"/>
+		<link rel="stylesheet" type="text/css" href="shared/style/switches.css"/>
+		<link rel="stylesheet" type="text/css" href="shared/style/buttons.css"/>
+		<link rel="stylesheet" type="text/css" href="shared/style/status.css"/>
+		<link rel="stylesheet" type="text/css" href="shared/style/confirm.css"/>
+		<link rel="stylesheet" type="text/css" href="shared/style/action_menu.css"/>
+		<link rel="stylesheet" type="text/css" href="shared/style/responsive.css"/>
+		
 		 <!-- Specific code -->
 		<script type="text/javascript" defer src="js/jquery-2.0.2.js"></script>
 		<script type="text/javascript" defer src="js/wz_jsgraphics.js"></script>
+		
 		<script type="text/javascript" defer src="js/textaction.js"></script>
 		<script type="text/javascript" defer src="js/jquery.fancygestures.js"></script>
 		<script type="text/javascript" defer src="js/action.js"></script>	
 		<script type="text/javascript" defer src="js/settings.js"></script>
-	</head>
-	<body>
-		<div>
-			<input type="text" id="outputbox" style="width:200px">
-			<input type="button" id="clear_button" value="clear" style="width:40px">
-			<input type="button" id="language_button" value="All" style="width:40px">
-		</div>
-		<div id="suggestion_buttons">
-			<input type="button" id="letter_backup1" value="" style="width:90px">
-			<input type="button" id="letter_backup2" value="" style="width:90px">
-			<input type="button" id="letter_backup3" value="" style="width:90px">
-		</div>
-		<div id="drawarea" style="border:1px solid black;position:relative;height: 420px;width: 300px"></div>
+		
+		<style>
 
+		</style>
+		
+	</head>
+	<body role="application">
+		
+		<section role="region">
+			<header>
+				<menu type="toolbar">
+					<button class="nav-settings-btn"></button>
+				</menu>
+				<h1>TextAction FX</h1>
+			</header>
+		</section>
+		
+		<div class="bb-docs" align="center">
+			<div style="width:100%;height:100%;" class="bb-docs">
+	       		<textarea style="width:65%; height:30px; float:left;" type="text" id="outputbox" required></textarea>
+	       		<button style="width:15%; float:left;" id="clear_button">Clear</button>
+	       		<button style="width:15%; float:left;" id="language_button">All</button>
+			<!--<input type="button" id="clear_button" value="clear" style="width:40px">
+				<input type="button" id="language_button" value="All" style="width:40px">-->
+			</div>
+			
+			<div id="suggestion_buttons" style="width:100%;" class="bb-docs">
+				<button style="width:31%; float:left;" id="letter_backup1"></button>
+				<button style="width:31%; float:left;" id="letter_backup2"></button>
+				<button style="width:31%; float:left;" id="letter_backup3"></button>
+			</div>
+			
+			<br><br><br><br><br><br>
+			
+			<div id="drawarea" style="width:80%;height: 420px; border:1px solid black;position:relative;" align="center">
+				
+			</div>
+		</div>
+<!--
 		<section class="setting">
 			<header class="setting_header">
 				<a href="<" class="header_left_btn"></a>
@@ -45,7 +83,7 @@
 				</li>
 				<li>
 					<!--<span id="setting-word-suggestion" class="setting_list_item setting_suggestion">WorD SuggestionS</span> -->
-					<label>
+	<!--				<label>
 						Word Suggestions
 						<input type="checkbox" id="wordsuggestion" >
 					</label>
@@ -54,7 +92,7 @@
 					<a href="" data-l10n-id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
 				</li>
 			</section>
-		</section>
+		</section> -->
 
 	</body>
 </html>

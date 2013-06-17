@@ -1,4 +1,4 @@
-﻿function loadLocalStorage() {
+﻿/* function loadLocalStorage() {
 	
 	if(localStorage.getItem('wordsuggestion') == "true") {
 		document.getElementById('wordsuggestion').checked = true;
@@ -41,4 +41,4 @@ window.onload = function() {
 	} else {
 		alert('fail to save settings');
 	}
-};
+}; */
