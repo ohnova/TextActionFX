@@ -1,18 +1,32 @@
-var actionCheckTimer;
+var ActionCheckTimer;
 var EnableSuggestionButtons = true;
-
 
 
 $(document).ready(function() {
 	// element' HTML value initialization.
-	// var a = navigator.mozL10n.language.code;
-	// console("a = " + a);
+	$(".setting").hide();
 
 	$("#outputbox").val(""); 
 	$("#clear_button").click(function() {
 		$("#outputbox").val("");
 		$("#suggestion_buttons").hide();
 	});
+	
+	$("#language_button").click(function() {
+		if(TextAction.SettingValueLanguage == TextAction.indexAll){
+			TextAction.SettingValueLanguage = TextAction.indexEng;
+			$("#language_button").val("Eng");
+		} 
+		else if(TextAction.SettingValueLanguage == TextAction.indexEng){
+			TextAction.SettingValueLanguage = TextAction.indexNum;
+			$("#language_button").val("Num");
+		} 
+		else if(TextAction.SettingValueLanguage == TextAction.indexNum){
+			TextAction.SettingValueLanguage = TextAction.indexEng;
+			$("#language_button").val("Eng");
+		}
+	});
+	
 	
 	$("#suggestion_buttons").hide();
 	$("#letter_backup1").click(function() {
@@ -52,8 +66,8 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
 		// document.getElementById('outputbox').innerHTML += letter;
 		$("#outputbox").val($("#outputbox").val()+letter);
 		
-		if(actionCheckTimer != null) {
-			clearInterval(actionCheckTimer);				
+		if(ActionCheckTimer != null) {
+			clearInterval(ActionCheckTimer);				
 		}		
 		
 		if(EnableSuggestionButtons == true) {
@@ -64,15 +78,15 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
 			$("#letter_backup3").val(letter_backup3);
 		}
 		
-		actionCheckTimer = setInterval(function () { 
+		ActionCheckTimer = setInterval(function () { 
        	 	actionCheck($("#outputbox").val());
-       	 	clearInterval(actionCheckTimer);	
+       	 	clearInterval(ActionCheckTimer);	
         }, 500);
 }
 	
 
 function actionCheck(data) {
-	console.log("[action.js] : actionCheck(): data = " + data);
+	// console.log("[action.js] : actionCheck(): data = " + data);
 	
 	// __1. check one char
 	if(data.length == 1) {
@@ -103,40 +117,79 @@ function actionCheck(data) {
 			}
 		} else if ("c" == lastChar || "C" == lastChar) {
 			var strNum = data.substr(0, data.length-1);			
-			 var call = new MozActivity({
+			var call = new MozActivity({
                  name: "dial",
                  data: {
                      number: strNum
                  }
             });
+		} else if( "m" == lastChar || "M" == lastChar) {
+			actionSMS(data);
 		}
 	}
 }
 
 function actionSMS(data) {
-		// TESTING ... it's not working...
-		// SMS object
-		var sms = window.navigator.mozSms;
-		// Send a message
-		sms.send("123456789", "Hello world!");
+		var sms = new MozActivity({
+  			 "name": "new",
+   			 "data": {
+   			 	"type": "websms/sms",
+        	 	"number": "1234"
+   			 }
+		});
 }
 
 function actionYouTube(data) {
 	if(data.length == 1) {
-		alert("TODO : Start YouTube Application");
+		// alert("TODO : Start YouTube Application");
 	} else {
-		keyword = data.substring(0,data.length-1);
-		alert("TODO : Start YouTube Application & Search "+keyword);
+		var keyword = data.substring(0,data.length-1);
+		// alert("TODO : Start YouTube Application & Search "+keyword);
 	}
 }
 
 function actionBrowser(data) {
-	if(data.length == 1) {
-		alert("TODO : Start Browser Application");
-	} else {
-		keyword = data.substring(0,data.length-1);
-		alert("TODO : Start Browser Application & Search "+keyword);
+	// TODO : load browser setting value 
+	var setting = TextAction.indexNaver;
+	var urlString = "";
+	
+	switch (setting) {
+		case TextAction.indexNaver :
+			if(data.length == 1) {
+				urlString = TextAction.urlNaver;
+			} else {
+				var search_keyword = data.substring(0,data.length-1);
+				urlString = TextAction.urlSearchNaver+search_keyword;
+			}
+		break;
+		
+		case TextAction.indexDaum : 
+			if(data.length == 1) {
+				urlString = TextAction.urlDaum;
+			} else {
+				var search_keyword = data.substring(0,data.length-1);
+				urlString = TextAction.urlSerachDaum+search_keyword;
+			}
+		break;
+		
+		case TextAction.indexNate : 
+			if(data.length == 1) {
+				urlString = TextAction.urlNate;
+			} else {
+				var search_keyword = data.substring(0,data.length-1);
+				urlString = TextAction.urlSerachNate+search_keyword;
+			}
+		break;
+		
 	}
+	
+	var openURL = new MozActivity({
+		"name" : "view",
+		"data" : {
+			"type" : "url",
+			"url" : urlString
+		}
+	}); 
 }
  
 function actionCalculator(data) {
@@ -248,11 +301,11 @@ function getMathSymbolIndexArray(data) {
 
 	// __2. find
 	for (var i = 0; i < data.length; i++) {
-		console.log(i+"->"+data.charAt(i));
+		// console.log(i+"->"+data.charAt(i));
 		var character = data.charAt(i) + "";
 		if ("+" == character || "-" == character || "*" == character || 
 			"/" == character || "x" == character || "X" == character || "=" == character) {
-			console.log("index --> " + i);
+			// console.log("index --> " + i);
 			mathSymbolIndexArray[count] = i;
 			count++;
 		}
