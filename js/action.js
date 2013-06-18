@@ -194,6 +194,7 @@ function actionCalculator(data) {
 	console.log("[action.js] : actionCalculator()")
 
 	//var result = calculateElement();
+	
 	var result = 0;
 	if(devideByToken(data)) result = calculateElement();
 	else {
@@ -201,37 +202,6 @@ function actionCalculator(data) {
 		result = result.substring(0,result.length-1)
 	}
 	document.getElementById('outputbox').value = result;
-
-}
-
-function remove (index) {
-
-	var temp = new Array();
-	var length = element.length;
-
-	while(length>index) {
-		var item = element.pop();
-		temp.push(item);
-		length--;
-	}
-	
-	for(var i=temp.length-2;i>=0;i--){
-		element.push(temp[i]);
-	}
-}
-function add (index, data) {
-	var temp = new Array();
-	var length = element.length;
-	
-	while(length>index) {
-		var item = element.pop();
-		temp.push(item);
-		length--;
-	}
-	element.push(data);
-	for(var i=temp.length-1;i>=0;i--){
-		element.push(temp[i]);
-	}
 }
 
 function calculate(val1, val2, symbol) {
@@ -249,13 +219,14 @@ function calculate(val1, val2, symbol) {
 function calculateElement() {
 	while(element.length != 1) {
 		var num1 = element[0];
-		 remove(0);
+		element.splice(0,1);//remove(0);
 		var symbol = element[0];
-		 remove(0);
+		element.splice(0,1);//remove(0);
 		var num2 = element[0];
-		 remove(0);
-		
-		 add(0, calculate(num1, num2, symbol));
+		element.splice(0,1);// remove(0);
+		 
+		element.splice(0, 0, calculate(num1, num2, symbol)); //add(0, calculate(num1, num2, symbol));
+		 
 	}
 	
 	return element[0];
@@ -268,16 +239,17 @@ function devideByToken(data) {
 
 		var start = 0;
 		var end = 0;
+		
 		for(var i=0;i<mathSymbolIndexArray.length; i++) {			
 			end = mathSymbolIndexArray[i];
 			var character = data.substring(start, end);
-			if(isNaN(character)) return false;
+			if(isNaN(character))return false;
 			if(start !=0 && (element[element.length-1]=='X' || element[element.length-1]=='x' || 
 							 element[element.length-1]=='*' || element[element.length-1]=='/' )) {
 				var symbol = element[element.length-1];
-				element.remove(element.length-1);
+				element.splice(element.length-1,1);// element.remove(element.length-1);	
 				var num1 = element[element.length-1];
-				element.remove(element.length-1);
+				element.splice(element.length-1,1);// element.remove(element.length-1);
 				var num2 = character;
 
 				element.push(calculate(num1, num2, symbol) + '');
@@ -289,10 +261,10 @@ function devideByToken(data) {
 			}
 			start = end + 1;
 		}
-		 remove(element.length-1);
+		element.splice(element.length-1,1);// element.remove(element.length-1);
 		
 		for(var i=0;i<element.length;i++) {
-			if(element[i] == '=') return false;
+			if(element[i] == '=')return false;		
 
 		}
 		return true;
@@ -333,22 +305,17 @@ function getMathSymbolIndexArray(data) {
 	var mathSymbolIndexArray = new Array();
 	
 	// __1. remove newline char & blank & symbol blank
-	//data = data.replace("\n", "");
-   	//data = data.replace(" ", "");
-   	//data = data.replace("	", "");
-	data = data.replace(/\s/g,'');
+	data = data.replace(/^\s*/,'');
+	data = data.replace(/\s*$/,'');
 	
 
 	// __2. find
 	for(var i=0;i<data.length;i++) {
 		var character = data.charAt(i);
-		if(character=='+' || character=='-' || character=='*' || character=='/' || character=='=') {
+		if(character=='+' || character=='-' || character=='*' || character=='x' || character=='X' || character=='/' || character=='=') {
 			mathSymbolIndexArray.push(i);
 			
 		}
 	}
 	return mathSymbolIndexArray;
 }
-
-
-
