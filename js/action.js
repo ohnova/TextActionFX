@@ -69,7 +69,8 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
 			clearInterval(ActionCheckTimer);				
 		}		
 		
-		if(EnableSuggestionButtons == true) {
+		//if(EnableSuggestionButtons == true) {
+		if(TextAction.wordSuggestion) {
 			console.log(letter + " / " + letter_backup1 + " / " + letter_backup2 + " / " + letter_backup3);
 			$("#suggestion_buttons").show();
 			$("#letter_backup1").html(letter_backup1);
@@ -148,7 +149,7 @@ function actionYouTube(data) {
 
 function actionBrowser(data) {
 	// TODO : load browser setting value 
-	var setting = TextAction.indexNaver;
+	var setting = TextAction.searchEngine;
 	var urlString = "";
 	
 	switch (setting) {
