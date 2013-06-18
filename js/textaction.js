@@ -22,6 +22,8 @@ function TextAction() {
 	this.urlSerachDaum = "http://m.search.daum.net/search?&q="
 	this.urlSerachNate = "http://m.search.nate.com/search/all.html?q="
 
+	this.wordSuggestion = false;
+	this.searchEngine = 0;
 
 }
 
