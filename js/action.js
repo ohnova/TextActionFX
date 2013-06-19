@@ -27,6 +27,10 @@ $(document).ready(function() {
 		}
 	});
 	
+/*	$('.nav-settings-btn').click(function() {
+		
+	});*/
+	
 	$("#suggestion_buttons").hide();
 	$("#letter_backup1").click(function() {
 		var str = $("#outputbox").val();
