@@ -2,7 +2,7 @@
 var savedGesture = '';
 var gesture;
 
-function loadLocalStorage() {
+function loadLocalStoraghideCommande() {
 	
 	if(localStorage.getItem('wordsuggestion') == "true") {
 		TextAction.wordSuggestion = true;
@@ -49,9 +49,7 @@ function saveLocalStorageForEngine() {
 }
 
 function LoadFunction() {
-	// reset
-	hideCommand();
-	hideGuide();
+
 	
 }
 
@@ -71,7 +69,7 @@ function getGesture() {
 window.onload = function() {
 	if(window.localStorage) {
 		
-		loadLocalStorage();		
+		// loadLocalStorage();		
 		
 		document.getElementById('wordsuggestion').onclick = saveLocalStorageForWordSuggestion;
 		document.getElementById('engine').onchange = saveLocalStorageForEngine;
