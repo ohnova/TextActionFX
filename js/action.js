@@ -1,6 +1,6 @@
 var ActionCheckTimer;
 var EnableSuggestionButtons = true;
-var element;
+
 
 $(document).ready(function() {
 	// element' HTML value initialization.
@@ -26,10 +26,6 @@ $(document).ready(function() {
 			$("#language_button").html("Eng");
 		}
 	});
-	
-/*	$('.nav-settings-btn').click(function() {
-		
-	});*/
 	
 	$("#suggestion_buttons").hide();
 	$("#letter_backup1").click(function() {
@@ -73,8 +69,7 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
 			clearInterval(ActionCheckTimer);				
 		}		
 		
-		//if(EnableSuggestionButtons == true) {
-		if(TextAction.wordSuggestion) {
+		if(EnableSuggestionButtons == true) {
 			console.log(letter + " / " + letter_backup1 + " / " + letter_backup2 + " / " + letter_backup3);
 			$("#suggestion_buttons").show();
 			$("#letter_backup1").html(letter_backup1);
@@ -112,9 +107,9 @@ function actionCheck(data) {
 		} else if("?" == lastChar) {
 			actionBrowser(data);
 		} else if("=" == lastChar) {
-			if(isRightFormula(data)) {
+			if(isRightFormula(data) == true) {
 				console.log("isRightFormula : true ")
-				actionCalculator(data);
+				var result = actionCalculator(data);
 			} else {
 				console.log("isRightFormula : false ")
 			}
@@ -153,7 +148,7 @@ function actionYouTube(data) {
 
 function actionBrowser(data) {
 	// TODO : load browser setting value 
-	var setting = TextAction.searchEngine;
+	var setting = TextAction.indexNaver;
 	var urlString = "";
 	
 	switch (setting) {
@@ -197,83 +192,69 @@ function actionBrowser(data) {
  
 function actionCalculator(data) {
 	console.log("[action.js] : actionCalculator()")
-
-	//var result = calculateElement();
+	var elements = devideByToken(data);
 	
-	var result = 0;
-	if(devideByToken(data)) result = calculateElement();
-	else {
-		result = document.getElementById('outputbox').value;
-		result = result.substring(0,result.length-1)
-	}
-	document.getElementById('outputbox').value = result;
+	var result = calculateElement(elements);
+	$("#outputbox").val(result);
 }
 
-function calculate(val1, val2, symbol) {
-	var result = 0;
-	var num1 = Number(val1);
-	var num2 = Number(val2);
-	if(symbol == '+') result = num1 + num2; 
-	else if(symbol == '-') result = num1 - num2; 
-	else if(symbol == '*' || symbol == 'x' || symbol == 'X') result = num1 * num2; 
-	else if(symbol == '/') result = num1 / num2; 
+function calculate(num1, symbol, num2){
+	var result;
 
+	if (("+") == symbol) {
+		result = num1 + num2;
+	}
+	else if (("-") == symbol) {
+		result = num1 - num2;
+	}
+	else if (("*") == symbol|| ("x") == symbol || ("X") == symbol) {
+		result = num1 * num2;
+	}
+	else if (("/") == symbol) {
+		result = num1 / num2;
+	}
+	
 	return result;
 }
 
-function calculateElement() {
-	while(element.length != 1) {
-		var num1 = element[0];
-		element.splice(0,1);//remove(0);
-		var symbol = element[0];
-		element.splice(0,1);//remove(0);
-		var num2 = element[0];
-		element.splice(0,1);// remove(0);
-		 
-		element.splice(0, 0, calculate(num1, num2, symbol)); //add(0, calculate(num1, num2, symbol));
-		 
-	}
+function calculateElement(elements) {
+	var elements_count = elements.length;
 	
-	return element[0];
+	for(var i = 0; i < elements.length ; i+=2) {
+		if(i+2 <= elements.length) {
+			var result = calculate(elements[i],elements[i+1],elements[i+2]);
+			elements[i+2] = result;	
+			// console.log("i="+i+ "*** "+ result);
+		}
+	}
+	return result;
 }
 
 function devideByToken(data) {
-
-		element = new Array();
-		var mathSymbolIndexArray = getMathSymbolIndexArray(data);
-
-		var start = 0;
-		var end = 0;
+	var mathSymbolIndexArray;
+	var elements = new Array();
+	
+	var elements_count = 0;
+	var start = 0;
+	var end = 0;
+	
+	mathSymbolIndexArray = getMathSymbolIndexArray(data);
+	for(var i=0;i<mathSymbolIndexArray.length;i++) {
+		end = mathSymbolIndexArray[i];
+		var currentToken = data.substring(start,end);
 		
-		for(var i=0;i<mathSymbolIndexArray.length; i++) {			
-			end = mathSymbolIndexArray[i];
-			var character = data.substring(start, end);
-			if(isNaN(character))return false;
-			if(start !=0 && (element[element.length-1]=='X' || element[element.length-1]=='x' || 
-							 element[element.length-1]=='*' || element[element.length-1]=='/' )) {
-				var symbol = element[element.length-1];
-				element.splice(element.length-1,1);// element.remove(element.length-1);	
-				var num1 = element[element.length-1];
-				element.splice(element.length-1,1);// element.remove(element.length-1);
-				var num2 = character;
-
-				element.push(calculate(num1, num2, symbol) + '');
-				element.push(data.charAt(end) + '');
-				
-			} else {
-				element.push(character);
-				element.push(data.charAt(end) + '');
-			}
-			start = end + 1;
-		}
-		element.splice(element.length-1,1);// element.remove(element.length-1);
+		// TODO : check analyze token is number 
+		// TODO : "*", "/" priority handling
 		
-		for(var i=0;i<element.length;i++) {
-			if(element[i] == '=')return false;		
-
+		elements[elements_count++] = currentToken;
+		if(data.charAt(end) != "="){
+			elements[elements_count++] = data.charAt(end);	
 		}
-		return true;
-	 
+		start=end+1;
+	}
+	
+	
+	return elements;
 }
 
 function isRightFormula(data) {
@@ -307,20 +288,27 @@ function isRightFormula(data) {
 }
 
 function getMathSymbolIndexArray(data) {
+	var count = 0;
 	var mathSymbolIndexArray = new Array();
 	
 	// __1. remove newline char & blank & symbol blank
-	data = data.replace(/^\s*/,'');
-	data = data.replace(/\s*$/,'');
+	data = data.replace("\n", "");
+   	data = data.replace(" ", "");
+   	data = data.replace("	", "");
 	
 
 	// __2. find
-	for(var i=0;i<data.length;i++) {
-		var character = data.charAt(i);
-		if(character=='+' || character=='-' || character=='*' || character=='x' || character=='X' || character=='/' || character=='=') {
-			mathSymbolIndexArray.push(i);
-			
+	for (var i = 0; i < data.length; i++) {
+		// console.log(i+"->"+data.charAt(i));
+		var character = data.charAt(i) + "";
+		if ("+" == character || "-" == character || "*" == character || 
+			"/" == character || "x" == character || "X" == character || "=" == character) {
+			// console.log("index --> " + i);
+			mathSymbolIndexArray[count] = i;
+			count++;
 		}
 	}
+	
 	return mathSymbolIndexArray;
 }
+
