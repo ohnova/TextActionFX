@@ -15,3 +15,8 @@ div.bb-docs {
 .nav-settings-btn {
   background-image: url("res/icons/settings.png") !important;
 }
+
+
+.setting {
+	font-size: 20px;
+}
