@@ -17,6 +17,6 @@ div.bb-docs {
 }
 
 
-.setting {
+.setting, #setting-command-section, #setting-guide-section {
 	font-size: 20px;
 }
