@@ -53,27 +53,6 @@ function LoadFunction() {
 	hideCommand();
 	hideGuide();
 	
-	// init
-	document.getElementById('setting-command-setting').onclick = showCommand;
-	document.getElementById('command-done').onclick = hideCommand;
-	document.getElementById('setting-textaction-guide').onclick = showGuide;
-	document.getElementById('guide_done').onclick = hideGuide;
-}
-function showGuide() {
-	document.getElementById('setting-textaction-guide-content').style.display='block';
-}
-
-function hideGuide() {
-	document.getElementById('setting-textaction-guide-content').style.display='none';
-}
-
-function showCommand() {
-	getGesture();
-	document.getElementById('setting-command-setting-content').style.display='block';
-}
-
-function hideCommand() {
-	document.getElementById('setting-command-setting-content').style.display='none';
 }
 
 function getGesture() {
@@ -101,5 +80,6 @@ window.onload = function() {
 	}
 	
 
+	getGesture();
 	LoadFunction();
 };
