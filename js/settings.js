@@ -2,7 +2,7 @@
 var savedGesture = '';
 var gesture;
 
-function loadLocalStoraghideCommande() {
+function loadLocalStorage() {
 	
 	if(localStorage.getItem('wordsuggestion') == "true") {
 		TextAction.wordSuggestion = true;
@@ -69,7 +69,7 @@ function getGesture() {
 window.onload = function() {
 	if(window.localStorage) {
 		
-		// loadLocalStorage();		
+		loadLocalStorage();		
 		
 		document.getElementById('wordsuggestion').onclick = saveLocalStorageForWordSuggestion;
 		document.getElementById('engine').onchange = saveLocalStorageForEngine;
