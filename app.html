@@ -17,6 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="shared/style/confirm.css"/>
 		<link rel="stylesheet" type="text/css" href="shared/style/action_menu.css"/>
 		<link rel="stylesheet" type="text/css" href="shared/style/responsive.css"/>
+		<link rel="stylesheet" type="text/css" href="shared/style/lists.css"/>
 
 		<!-- Specific code -->
 		<script type="text/javascript" defer src="js/jquery-2.0.2.js"></script>
@@ -83,30 +84,35 @@
 					<a href="#setting-command-section" id="setting-command-setting" class="setting_list_item setting_command">Command Setting</a>
 				</li>
 				<li>
-					Search Engine
-					<select id="engine">
+					<a id="test1">Search Engine
+						<select id="engine" >
 						<option value="naver" id="setting-search-engine-naver">Naver</option>
 						<option value="daum" id="setting-search-engine-daum">Daum</option>
 						<option value="nate" id="setting-search-engine-nate">Nate</option>
-					</select>
+					</select></a>
 				</li>
 				<li>
 					<!--<span id="setting-word-suggestion" class="setting_list_item setting_suggestion">WorD SuggestionS</span> -->
-					<label>Word Suggestions</label>
-					<input type="checkbox" id="wordsuggestion" >
+					Word Suggestions
+						
+					<label>
+					<input type="checkbox" data-type="switch" id="wordsuggestion" >
+					<span></span> </label>
 				</li>
 				<li>
 					<a href="#setting-guide-section" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
 				</li>
+				<li></li>
 			</section>
 
 		</section>
+		
 		<section role="region" id="setting-command-section" >
 			<header>
 				<a href="#setting-section" class="header_left_btn"></a>
 				<h1>TextAction Command</h1>
 			</header>
-			<div id="command-content">
+			<div id="command-content" style="height:418px; overflow:auto;">
 			</div>
 		</section>
 		<section role="region" id="setting-guide-section">
@@ -114,12 +120,13 @@
 				<a href="#setting-section" class="header_left_btn"></a>
 				<h1>TextAction Guide</h1>
 			</header>
-			<div id="guide-content">
+			<div id="guide-content" style="height:418px; overflow:auto;">
 				<div>
 					Coming Soon...
 				</div>
+				<a href="#setting-section" class="header_left_btn"><button id="guide_done">Done</button></a>
 			</div>
-			<a href="#setting-section" class="header_left_btn"><button id="guide_done">Done</button></a>
+			
 		</section>
 	</body>
 </html>

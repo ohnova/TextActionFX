@@ -1,4 +1,4 @@
-﻿var defaultGesture = '?/c/m/>/y/!/@';
+﻿var defaultGesture = '?/c/m/>/y/!/@/t/e/s/t';
 var savedGesture = '';
 var gesture;
 
@@ -66,6 +66,13 @@ function getGesture() {
 	document.getElementById('command-content').innerHTML = output;
 }
 
+function test() {
+	$('#test1').click(function() {
+		$('#engine').focus();
+	});
+
+}
+
 window.onload = function() {
 	if(window.localStorage) {
 		
@@ -78,6 +85,8 @@ window.onload = function() {
 	}
 	
 
+	test();
+	
 	getGesture();
 	LoadFunction();
 };
