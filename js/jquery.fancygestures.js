@@ -164,7 +164,10 @@ var recognitionTimer;
 		var moves = new Array;			// must be initialize by turn
 		var strokeCount = new Array();  // must be initialize by turn
 		var strokeCountIndex = 0;	    // must be initialize by turn
-		 
+		
+		var firstX = 0;
+		var firstY = 0;
+		
 		var sectorRad = Math.PI*2/8;
 		var anglesMap = new Array;
 		var step = Math.PI*2/100;
@@ -173,6 +176,9 @@ var recognitionTimer;
 		
 		var canvasWidth = $("#drawarea").width();
 		var canvasHeight = $("#drawarea").height();
+        
+        
+         
 
 		for (var i = -sectorRad/2; i<=Math.PI*2-sectorRad/2; i+=step){
 			sector=Math.floor((i+sectorRad/2)/sectorRad);
@@ -194,11 +200,14 @@ var recognitionTimer;
 			
 			// graphics.clear();
 			// graphics.paint();
-
-
-			lastPositionX = event.clientX-position.left;
-			lastPositionY = event.clientY-position.top;	
 			
+			lastPositionX = event.clientX-position.left;
+            lastPositionY = event.clientY-position.top; 
+            if(firstX == 0) {
+                firstX = lastPositionX;
+                firstY = lastPositionY;
+            }
+            
 			// check next char 
 			if(isNextChar(event.clientX,event.clientY)) {
 					// display next character start point. red 
@@ -262,7 +271,7 @@ var recognitionTimer;
 			recognitionTimer = setInterval(function () { 
 	       	 	recognitionStart();
 	       	 	clearInterval(recognitionTimer);	
-     	   	}, 1000);
+     	   	}, 500);
      	   	
      	   	// console.log("up X : " + event.clientX + " up Y : " + event.clientY);
      	   	lastUpEventX = event.clientX;
@@ -307,7 +316,7 @@ var recognitionTimer;
 			}
 			console.log("> movesArray = " + movesArray);
 			
-			
+			var all_letter = "";
 			for(k in movesArray) {
 				console.log("> movesArray [" + k + "] = " + movesArray[k]);
 				console.log("> strokeCount [" + k + "] = " + strokeCount[k]);
@@ -362,14 +371,27 @@ var recognitionTimer;
 						}
 					}
 				}
-				callbackfunction(letter,letter_backup1,letter_backup2,letter_backup3);
+				
+				all_letter += letter;
+				if(movesArray.length-1 == k) {
+				    $("#text_animation").html(all_letter);
+                    $("#text_animation").css("top", (firstY + lastUpEventY)/2);
+                    $("#text_animation").css("left", (firstX +lastUpEventX)/2);
+                    $("#text_animation").fadeIn(300).fadeOut(300);
+				}
+                
+                callbackfunction(letter,letter_backup1,letter_backup2,letter_backup3);
 			} 
 			
 			// initialize value
 			moves = new Array(0);
 			strokeCount = new Array(0);
+			
 			strokeCountIndex = 0;
 			strokeCount[strokeCountIndex] = 0;
+			
+			firstY = 0;
+			firstX = 0;
 			
 			lastPositionX = 0;
 			lastPositionY = 0;
