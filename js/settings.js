@@ -105,7 +105,15 @@ function showTutorial() {
 	});
 
 }
-
+function loadWordSuggestions() {
+	$('#setting_wordsuggestion').click(function() {
+		if(document.getElementById('wordsuggestion').checked)
+			document.getElementById('wordsuggestion').checked = false;
+		else 
+			document.getElementById('wordsuggestion').checked = true;
+		saveLocalStorageForWordSuggestion();
+	});
+}
 window.onload = function() {
 	if(window.localStorage) {
 		
@@ -123,4 +131,5 @@ window.onload = function() {
 	getGesture();
 	loadEngineText();
 	showTutorial();
+	loadWordSuggestions();
 };

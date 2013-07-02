@@ -80,7 +80,7 @@ select {
 	  margin: 2.0rem;
 
 }
-li > label  {
+a > label  {
 float: right;
  margin: 0.5rem 2.5rem;
 }
