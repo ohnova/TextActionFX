@@ -5,17 +5,21 @@ var element;
 $(document).ready(function() {
     // element' HTML value initialization.
     // $(".setting").hide();
-
+    
     $("#outputbox").val(""); 
     if(TextAction.SettingValueLanguage == TextAction.indexAll) {
        $("#language_button").html("ALL");
     }
     
+    $("#delete_button").click(function() {
+        var str = $("#outputbox").val();
+        $("#outputbox").val(str.substring(0, str.length - 1));
+    });
+    
     $("#clear_button").click(function() {
         $("#outputbox").val("");
         $("#suggestion_buttons").hide();
     });
-    
     
     $("#language_button").click(function() {
         if(TextAction.SettingValueLanguage == TextAction.indexAll){
@@ -58,7 +62,6 @@ $(document).ready(function() {
         $("#suggestion_buttons").hide();
         actionCheck($("#outputbox").val());
     });
-    
 
     $('#drawarea').fancygestures(
         function(letter, letter_backup1, letter_backup2, letter_backup3) {
