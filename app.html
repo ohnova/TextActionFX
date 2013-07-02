@@ -96,7 +96,8 @@
 				
 				</li>
 				<li>
-					<a href="#setting-guide-section" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
+					<!--<a href="#setting-guide-section" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>-->
+					<a href="#" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
 				</li>
 			</section>
 
@@ -110,7 +111,7 @@
 			<div id="command-content" style="height:418px; overflow:auto;">
 			</div>
 		</section>
-		<section role="region" id="setting-guide-section" class="skin-dark setting">
+	<!--	
 			<header>
 				<a href="#setting-section" class="header_left_btn"><span class="icon icon-back">back</span></a>
 				<h1>TextAction Guide</h1>
@@ -121,7 +122,32 @@
 				</div>
 				<a href="#setting-section" class="header_left_btn"><button id="guide_done">Done</button></a>
 			</div>
-			
 		</section>
+		-->
+
+		<form role="dialog"  id="tutorial_dialog" data-type="confirm">
+			<section id="tutorial_page1">
+				<h1>TextAction Guide</h1>
+      			<p> Restaurant <span class="tutorial">?</span> : Search
+      			<br/>David <span class="tutorial">c</span> : Calling
+      			<br/>David <span class="tutorial">m</span> : Messaging
+      			<br/>Beatles <span class="tutorial">></span> : Playing music
+      			<br/>David <span class="tutorial">@</span> : Email
+      			<br/>consert <span class="tutorial">y</span> : Youtube
+      			<br/>NewYork <span class="tutorial">!</span> : Maps</p>
+			</section>
+			<section id="tutorial_page2">
+				<h1>TextAction Guide</h1>
+      			<p>Calculator
+      			<br/>1000 <span class="tutorial">/</span> 4 <span class="tutorial">=</span></p>
+      			<br/><span style="font-size: 15px;"> The result is shown after input = sign with mathematical formula which has + (addition), - (subtraction), * (multiplication), / (division) sign with numbers.
+      			<br/>- Not able to calculate a mathematical formula with decimal point.</span>
+			</section>
+			<menu>
+				<button id="tutorial_prev">Prev</button>
+				<button id="tutorial_next">Next</button>
+			</menu>
+		</form>
+
 	</body>
 </html>
