@@ -46,10 +46,10 @@ function saveLocalStorageForEngine() {
 	var value = document.getElementById('engine').selectedIndex;
 	TextAction.searchEngine = value;
 	localStorage.setItem('engine', value);
-	LoadEngineText();
+	loadEngineText();
 }
 
-function LoadEngineText() {
+function loadEngineText() {
 	var index = Number(localStorage.getItem('engine'));
 	/*if(index == 0) document.getElementById('selected-engine').innerHTML = "naver";
 	else if(index == 1) document.getElementById('selected-engine').innerHTML = "daum";
@@ -77,6 +77,35 @@ function test() {
 
 }
 
+function showTutorial() {
+	$('#tutorial_dialog').hide();
+	$('#setting-textaction-guide').click(function() {
+		$('#tutorial_dialog').show();	
+		$('#tutorial_page1').show();
+		$('#tutorial_page2').hide();
+	});
+	$('#tutorial_prev').click(function() {
+		if(document.getElementById('tutorial_next').innerHTML == 'Done') {
+			document.getElementById('tutorial_next').innerHTML = 'Next';
+			$('#tutorial_page1').show();
+			$('#tutorial_page2').hide();
+		} else {
+			$('#tutorial_dialog').hide();
+		}
+	});
+	$('#tutorial_next').click(function() {
+		if(document.getElementById('tutorial_next').innerHTML == 'Done') {
+			$('#tutorial_dialog').hide();
+		} else {
+			document.getElementById('tutorial_next').innerHTML = 'Done';	
+			$('#tutorial_page1').hide();
+			$('#tutorial_page2').show();
+		}
+
+	});
+
+}
+
 window.onload = function() {
 	if(window.localStorage) {
 		
@@ -92,5 +121,6 @@ window.onload = function() {
 	test();
 	
 	getGesture();
-	LoadEngineText();
+	loadEngineText();
+	showTutorial();
 };
