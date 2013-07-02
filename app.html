@@ -30,43 +30,33 @@
 	</head>
 	<body role="application" >
 
-		<section role="region">
+		<section role="region" class="skin-dark">
 			<header>
 				<menu type="toolbar">
 					<!--<button class="nav-settings-btn"></button>-->
+					<button style="width:15%; float:left;" id="language_button">ALL</button>
 					<a id="go-setting-btn" href="#setting-section" class="nav-settings-btn"></a>
 				</menu>
 				<h1>TextAction FX</h1>
 			</header>
+			<header>
+				<h2>Write down message,command here.</h2>
+			</header>
 			<div class="bb-docs" align="center">
 				<div style="width:100%;height:100%;" class="bb-docs">
-					<textarea style="width:65%; height:30px; float:left;" type="text" id="outputbox" required></textarea>
-					<button style="width:15%; float:left;" id="clear_button">
-						Clear
-					</button>
-					<button style="width:15%; float:left;" id="language_button">
-						All
-					</button>
+					<textarea style="width:75%; height:30px; float:left; font-size:25px" type="text" id="outputbox" required></textarea>
+					<button style="width:5%; float:left;" id="delete_button">◀</button>
+					<button style="width:15%; float:left;" id="clear_button">Clear</button>
 					<!--<input type="button" id="clear_button" value="clear" style="width:40px">
 					<input type="button" id="language_button" value="All" style="width:40px">-->
 				</div>
-
 				<div id="suggestion_buttons" style="width:100%;" class="bb-docs">
-					<button style="width:31%; float:left;" id="letter_backup1"></button>
-					<button style="width:31%; float:left;" id="letter_backup2"></button>
-					<button style="width:31%; float:left;" id="letter_backup3"></button>
+					<button style="width:32%; float:left;" id="letter_backup1"></button>
+					<button style="width:32%; float:left;" id="letter_backup2"></button>
+					<button style="width:32%; float:left;" id="letter_backup3"></button>
 				</div>
 
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-				<br>
-
-				<div id="drawarea" style="width:87%;height: 280px; border:1px solid black;position:absolute; top: 165px; left: 20px;" align="center">
-
-				</div>
+				<div id="drawarea" style="width:98%;height:65%; border:2px solid black;position:absolute; top: 185px; left: 8px;" align="center"></div>
 			</div>
 		</section>
 
@@ -74,12 +64,12 @@
 
 		</div>
 
-		<section role="region" id="setting-section"class="setting">
+		<section role="region" id="setting-section" class="skin-dark">
 			<header class="setting_header">
-				<a href="#" class="header_left_btn"></a>
+				<a href="#" class="header_left_btn"><span class="icon icon-back">back</span></a>
 				<h1 class="setting_header">Setting</h1>
 			</header>
-			<section class="setting_area">
+			<section class="setting_area" class="skin-dark">
 				<li>
 					<a href="#setting-command-section" id="setting-command-setting" class="setting_list_item setting_command">Command Setting</a>
 				</li>
@@ -110,17 +100,17 @@
 
 		</section>
 		
-		<section role="region" id="setting-command-section" >
+		<section role="region" id="setting-command-section"  class="skin-dark" >
 			<header>
-				<a href="#setting-section" class="header_left_btn"></a>
+				<a href="#setting-section" class="header_left_btn"><span class="icon icon-back">back</span></a>
 				<h1>TextAction Command</h1>
 			</header>
 			<div id="command-content" style="height:418px; overflow:auto;">
 			</div>
 		</section>
-		<section role="region" id="setting-guide-section">
+		<section role="region" id="setting-guide-section" class="skin-dark">
 			<header>
-				<a href="#setting-section" class="header_left_btn"></a>
+				<a href="#setting-section" class="header_left_btn"><span class="icon icon-back">back</span></a>
 				<h1>TextAction Guide</h1>
 			</header>
 			<div id="guide-content" style="height:418px; overflow:auto;">
