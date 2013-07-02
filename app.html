@@ -44,19 +44,21 @@
 			</header>
 			<div class="bb-docs" align="center">
 				<div style="width:100%;height:100%;" class="bb-docs">
-					<textarea style="width:75%; height:30px; float:left; font-size:25px" type="text" id="outputbox" required></textarea>
+					<textarea style="width:65%; height:30px; float:left; font-size:25px" type="text" id="outputbox" required></textarea>
 					<button style="width:5%; float:left;" id="delete_button">◀</button>
 					<button style="width:15%; float:left;" id="clear_button">Clear</button>
 					<!--<input type="button" id="clear_button" value="clear" style="width:40px">
 					<input type="button" id="language_button" value="All" style="width:40px">-->
 				</div>
 				<div id="suggestion_buttons" style="width:100%;" class="bb-docs">
-					<button style="width:32%; float:left;" id="letter_backup1"></button>
-					<button style="width:32%; float:left;" id="letter_backup2"></button>
-					<button style="width:32%; float:left;" id="letter_backup3"></button>
+					<button style="width:31%; float:left;" id="letter_backup1"></button>
+					<button style="width:31%; float:left;" id="letter_backup2"></button>
+					<button style="width:31%; float:left;" id="letter_backup3"></button>
 				</div>
 
-				<div id="drawarea" style="width:98%;height:65%; border:2px solid black;position:absolute; top: 185px; left: 8px;" align="center"></div>
+				<div id="drawarea" style="width:86%;height: 50%; border:2px solid black;position:absolute; top: 195px; left: 20px;" align="center">
+
+				</div>
 			</div>
 		</section>
 
@@ -64,12 +66,12 @@
 
 		</div>
 
-		<section role="region" id="setting-section" class="skin-dark">
+		<section role="region" id="setting-section" class="skin-dark setting">
 			<header class="setting_header">
 				<a href="#" class="header_left_btn"><span class="icon icon-back">back</span></a>
 				<h1 class="setting_header">Setting</h1>
 			</header>
-			<section class="setting_area" class="skin-dark">
+			<section class="setting_area" class="skin-dark setting ">
 				<li>
 					<a href="#setting-command-section" id="setting-command-setting" class="setting_list_item setting_command">Command Setting</a>
 				</li>
@@ -94,13 +96,14 @@
 				
 				</li>
 				<li>
-					<a href="#setting-guide-section" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
+					<!--<a href="#setting-guide-section" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>-->
+					<a href="#" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
 				</li>
 			</section>
 
 		</section>
 		
-		<section role="region" id="setting-command-section"  class="skin-dark" >
+		<section role="region" id="setting-command-section"  class="skin-dark setting" >
 			<header>
 				<a href="#setting-section" class="header_left_btn"><span class="icon icon-back">back</span></a>
 				<h1>TextAction Command</h1>
@@ -108,7 +111,7 @@
 			<div id="command-content" style="height:418px; overflow:auto;">
 			</div>
 		</section>
-		<section role="region" id="setting-guide-section" class="skin-dark">
+	<!--	
 			<header>
 				<a href="#setting-section" class="header_left_btn"><span class="icon icon-back">back</span></a>
 				<h1>TextAction Guide</h1>
@@ -119,7 +122,32 @@
 				</div>
 				<a href="#setting-section" class="header_left_btn"><button id="guide_done">Done</button></a>
 			</div>
-			
 		</section>
+		-->
+
+		<form role="dialog"  id="tutorial_dialog" data-type="confirm">
+			<section id="tutorial_page1">
+				<h1>TextAction Guide</h1>
+      			<p> Restaurant <span class="tutorial">?</span> : Search
+      			<br/>David <span class="tutorial">c</span> : Calling
+      			<br/>David <span class="tutorial">m</span> : Messaging
+      			<br/>Beatles <span class="tutorial">></span> : Playing music
+      			<br/>David <span class="tutorial">@</span> : Email
+      			<br/>consert <span class="tutorial">y</span> : Youtube
+      			<br/>NewYork <span class="tutorial">!</span> : Maps</p>
+			</section>
+			<section id="tutorial_page2">
+				<h1>TextAction Guide</h1>
+      			<p>Calculator
+      			<br/>1000 <span class="tutorial">/</span> 4 <span class="tutorial">=</span></p>
+      			<br/><span style="font-size: 15px;"> The result is shown after input = sign with mathematical formula which has + (addition), - (subtraction), * (multiplication), / (division) sign with numbers.
+      			<br/>- Not able to calculate a mathematical formula with decimal point.</span>
+			</section>
+			<menu>
+				<button id="tutorial_prev">Prev</button>
+				<button id="tutorial_next">Next</button>
+			</menu>
+		</form>
+
 	</body>
 </html>
