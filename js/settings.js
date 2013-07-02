@@ -1,4 +1,4 @@
-﻿var defaultGesture = '?/c/m/>/y/!/@/t/e/s/t';
+﻿var defaultGesture = '?/c/m/>/y/!/@/=';
 var savedGesture = '';
 var gesture;
 var indexArray = [ "naver", "daum", "nate"];
@@ -70,15 +70,15 @@ function getGesture() {
 	document.getElementById('command-content').innerHTML = output;
 }
 
-function test() {
-	$('#test1').click(function() {
+function linkEngineSelect() {
+	$('#setting_engine').click(function() {
 		$('#engine').focus();
 	});
 
 }
 
 function showTutorial() {
-	$('#tutorial_dialog').hide();
+	//$('#tutorial_dialog').hide();
 	$('#setting-textaction-guide').click(function() {
 		$('#tutorial_dialog').show();	
 		$('#tutorial_page1').show();
@@ -126,7 +126,7 @@ window.onload = function() {
 	}
 	
 
-	test();
+	linkEngineSelect();
 	
 	getGesture();
 	loadEngineText();
