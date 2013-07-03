@@ -14,11 +14,12 @@ $(document).ready(function() {
     $("#delete_button").click(function() {
         var str = $("#outputbox").val();
         $("#outputbox").val(str.substring(0, str.length - 1));
+        setSuggestionButtonUI(false);
     });
     
     $("#clear_button").click(function() {
         $("#outputbox").val("");
-        $("#suggestion_buttons").hide();
+        setSuggestionButtonUI(false);
     });
     
     $("#language_button").click(function() {
@@ -40,26 +41,26 @@ $(document).ready(function() {
         
     });*/
     
-    $("#suggestion_buttons").hide();
+    setSuggestionButtonUI(false);
     $("#letter_backup1").click(function() {
         var str = $("#outputbox").val();
         console.log(str);
         $("#outputbox").val(str.substring(0, str.length - 1) + letter_backup1);
-        $("#suggestion_buttons").hide();
+        setSuggestionButtonUI(false);
         actionCheck($("#outputbox").val());
     });
     $("#letter_backup2").click(function() {
         var str = $("#outputbox").val();
         console.log(str);
         $("#outputbox").val(str.substring(0, str.length - 1) + letter_backup2);
-        $("#suggestion_buttons").hide();
+        setSuggestionButtonUI(false);
         actionCheck($("#outputbox").val());
     });
     $("#letter_backup3").click(function() {
         var str = $("#outputbox").val();
         console.log(str);
         $("#outputbox").val(str.substring(0, str.length - 1) + letter_backup3);
-        $("#suggestion_buttons").hide();
+        setSuggestionButtonUI(false);
         actionCheck($("#outputbox").val());
     });
 
@@ -69,7 +70,15 @@ $(document).ready(function() {
     });
 })
 
-function initUiElements() {
+function setSuggestionButtonUI(mode) {
+    if(mode) {
+      $("#outputbox").css("width","45%");
+      $("#suggestion_buttons").show();
+    } else {
+      $("#outputbox").css("width","78%");
+      $("#suggestion_buttons").hide();
+    }
+    
     
 }
 
@@ -83,8 +92,8 @@ function callbackfunction(letter, letter_backup1, letter_backup2, letter_backup3
         
         //if(EnableSuggestionButtons == true) {
         if(TextAction.wordSuggestion) {
+            setSuggestionButtonUI(true);
             console.log(letter + " / " + letter_backup1 + " / " + letter_backup2 + " / " + letter_backup3);
-            $("#suggestion_buttons").show();
             $("#letter_backup1").html(letter_backup1);
             $("#letter_backup2").html(letter_backup2);
             $("#letter_backup3").html(letter_backup3);

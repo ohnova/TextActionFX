@@ -65,7 +65,7 @@ var recognitionTimer;
 				gestures["V"] = "17*1";
 				gestures["W"] = "2716*1,2727*1,21767121217676*1";
 				gestures["X"] = "31*2,13*2";
-				gestures["Y"] = "1032,32102*2";
+				gestures["Y"] = "1032*1,32102*2";
 				gestures["Z"] = "030*1";
 			
 				// lower case
@@ -118,7 +118,7 @@ var recognitionTimer;
 				gestures["1"] = "37240*1,2*1"
 				gestures["2"] = "67012340*1"
 				gestures["3"] = "70123401234*1"
-				gestures["4"] = "302*2,202*2"
+				gestures["4"] = "302*2,202*2,32103232*2"
 				gestures["5"] = "27012340*2,427012345*1"
 				gestures["6"] = "43210765432*1,32106543*1"
 				gestures["7"] = "2102*2,202*2,02*1,3670123*1"
