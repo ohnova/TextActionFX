@@ -1,4 +1,4 @@
-﻿var defaultGesture = '?/c/m/>/y/!/@/t/e/s/t';
+﻿var defaultGesture = '?/c/m/>/y/!/@/=';
 var savedGesture = '';
 var gesture;
 var indexArray = [ "naver", "daum", "nate"];
@@ -70,16 +70,27 @@ function getGesture() {
 	document.getElementById('command-content').innerHTML = output;
 }
 
-function test() {
-	$('#test1').click(function() {
+function linkEngineSelect() {
+	$('#setting_engine').click(function() {
 		$('#engine').focus();
 	});
 
 }
 
 function showTutorial() {
-	$('#tutorial_dialog').hide();
+	//$('#tutorial_dialog').hide();
+	$('#tutorial_title').click(function() {
+
+		document.getElementById('tutorial_next').innerHTML = 'Next';
+		$('#tutorial_dialog').show();	
+		$('#tutorial_page1').show();
+		$('#tutorial_page2').hide();
+	});
+	
+	
 	$('#setting-textaction-guide').click(function() {
+
+		document.getElementById('tutorial_next').innerHTML = 'Next';
 		$('#tutorial_dialog').show();	
 		$('#tutorial_page1').show();
 		$('#tutorial_page2').hide();
@@ -105,7 +116,15 @@ function showTutorial() {
 	});
 
 }
-
+function loadWordSuggestions() {
+	$('#setting_wordsuggestion').click(function() {
+		if(document.getElementById('wordsuggestion').checked)
+			document.getElementById('wordsuggestion').checked = false;
+		else 
+			document.getElementById('wordsuggestion').checked = true;
+		saveLocalStorageForWordSuggestion();
+	});
+}
 window.onload = function() {
 	if(window.localStorage) {
 		
@@ -118,9 +137,10 @@ window.onload = function() {
 	}
 	
 
-	test();
+	linkEngineSelect();
 	
 	getGesture();
 	loadEngineText();
 	showTutorial();
+	loadWordSuggestions();
 };
