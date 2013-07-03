@@ -79,7 +79,18 @@ function linkEngineSelect() {
 
 function showTutorial() {
 	//$('#tutorial_dialog').hide();
+	$('#tutorial_title').click(function() {
+
+		document.getElementById('tutorial_next').innerHTML = 'Next';
+		$('#tutorial_dialog').show();	
+		$('#tutorial_page1').show();
+		$('#tutorial_page2').hide();
+	});
+	
+	
 	$('#setting-textaction-guide').click(function() {
+
+		document.getElementById('tutorial_next').innerHTML = 'Next';
 		$('#tutorial_dialog').show();	
 		$('#tutorial_page1').show();
 		$('#tutorial_page2').hide();
