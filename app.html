@@ -5,10 +5,10 @@
 		<title>TextAction</title>
 		<!-- Localization -->
 		<link rel="resource" type="application/l10n" href="locales/locales.ini">
-
+ 
 		<!-- Include text action fx main css -->
 		<link rel="stylesheet" type="text/css" href="style/textaction.css"/>
-
+ 
 		<!-- Include shared building blocks -->
 		<link rel="stylesheet" type="text/css" href="shared/style/headers.css"/>
 		<link rel="stylesheet" type="text/css" href="shared/style/switches.css"/>
@@ -18,18 +18,18 @@
 		<link rel="stylesheet" type="text/css" href="shared/style/action_menu.css"/>
 		<link rel="stylesheet" type="text/css" href="shared/style/responsive.css"/>
 		<!---<link rel="stylesheet" type="text/css" href="shared/style/lists.css"/> -->
-
+ 
 		<!-- Specific code -->
 		<script type="text/javascript" defer src="js/jquery-2.0.2.js"></script>
 		<script type="text/javascript" defer src="js/wz_jsgraphics.js"></script>
-
+ 
 		<script type="text/javascript" defer src="js/textaction.js"></script>
 		<script type="text/javascript" defer src="js/jquery.fancygestures.js"></script>
 		<script type="text/javascript" defer src="js/action.js"></script>
 		<script type="text/javascript" defer src="js/settings.js"></script>
 	</head>
 	<body role="application" >
-
+ 
 		<section role="region" class="skin-dark">
 			<header >
 				<menu type="toolbar">
@@ -44,29 +44,29 @@
 			</header>
 			<div class="bb-docs" align="center">
 				<div style="width:100%;height:100%;" class="bb-docs">
-					<textarea style="width:65%; height:30px; float:left; font-size:25px" type="text" id="outputbox" required></textarea>
-					<button style="width:5%; float:left;" id="delete_button">1</button>
-					<button style="width:15%; float:left;" id="clear_button">Clear</button>
+					<textarea style="width:78%; height:30px; float:left; font-size:25px" type="text" id="outputbox" required></textarea>
+					<button style="width:5%; float:left; margin-left: 2px;" id="delete_button"><b>&lt;</b></button>
+					<button style="width:5%; display:none; float:left; margin-left: 1%;" id="clear_button"><b>&lt;&lt;</b></button>
 					<!--<input type="button" id="clear_button" value="clear" style="width:40px">
 					<input type="button" id="language_button" value="All" style="width:40px">-->
+					<div id="suggestion_buttons" style="display:none; width:35%;float:left;margin-left: 2px">
+						<button style="width:23%; float:left; margin-left: 1px;" id="letter_backup1" class="recommend"></button>
+						<button style="width:23%; float:left; margin-left: 1px;" id="letter_backup2" class="recommend"></button>
+						<button style="width:23%; float:left; margin-left: 1px;" id="letter_backup3" class="recommend"></button>
+					</div>
 				</div>
-				<div id="suggestion_buttons" style="width:100%;" class="bb-docs">
-					<button style="width:31%; float:left;" id="letter_backup1"></button>
-					<button style="width:31%; float:left;" id="letter_backup2"></button>
-					<button style="width:31%; float:left;" id="letter_backup3"></button>
-				</div>
-
+ 
 				<div id="text_animation" style="display:none;position:absolute; font-size:100px; color:#4682b4; top: 200px; left: 100px;">X</div>
-				<div id="drawarea" style="width:86%;height: 50%; border:2px solid black;position:absolute; top: 195px; left: 20px;" align="center">
-
+				<div id="drawarea" style="width:86%;height: 60%; border:2px solid black;position:absolute; top: 140px; left: 20px;" align="center">
+ 
 				</div>
 			</div>
 		</section>
-
+ 
 		<div id="console">
-
+ 
 		</div>
-
+ 
 		<section role="region" id="setting-section" class="skin-dark setting">
 			<header class="setting_header">
 				<a href="#" class="header_left_btn"><span class="icon icon-back">back</span></a>
@@ -79,7 +79,7 @@
 				<li>
 					<a id="setting_engine" href="#nothing" >
 						Search Engine
-						<select id="engine" >
+					<select id="engine" >
 						<option value="naver" id="setting-search-engine-naver">Naver</option>
 						<option value="daum" id="setting-search-engine-daum">Daum</option>
 						<option value="nate" id="setting-search-engine-nate">Nate</option>
@@ -101,7 +101,7 @@
 					<a href="#" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>
 				</li>
 			</section>
-
+ 
 		</section>
 		
 		<section role="region" id="setting-command-section"  class="skin-dark setting" >
@@ -125,7 +125,7 @@
 			</div>
 		</section>
 		-->
-
+ 
 		<form role="dialog"  id="tutorial_dialog" data-type="confirm" style="display: none;">
 			<section id="tutorial_page1">
 				<h1>TextAction Guide</h1>
@@ -149,6 +149,6 @@
 				<button id="tutorial_next">Next</button>
 			</menu>
 		</form>
-
+ 
 	</body>
 </html>
