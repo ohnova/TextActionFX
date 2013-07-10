@@ -73,8 +73,8 @@ function addCommand() {
 		var selectedApp = document.getElementById('selected_app').innerHTML;
 		if (selectedApp != "" && $("#_gesture").val().length != 0) {
 			newGuesture += "/" + $("#_gesture").val();
-			//LaunchGesture += "/" + document.getElementById('selected_app').innerHTML;
-			LaunchGesture = "";
+			LaunchGesture += "/" + document.getElementById('selected_app').innerHTML;
+			
 			$("#_gesture").val("");
 			$('#setting-add-command').hide();
 			localStorage.setItem('savedGesture', newGuesture);
