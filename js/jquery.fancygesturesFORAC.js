@@ -28,14 +28,13 @@ THE SOFTWARE.
 
 */
 
-var isWatingForNextInput = false;
-var recognitionTimer;
+var recognitionTimerFORAC;
 
 (function($){   
-  $.fn.fancygestures = function(callbackfunction){   
+  $.fn.fancygesturesFORAC = function(callbackfunctionFORAC){   
 		var gestures = new Array();
 		
-		function patternDataUpdate() {
+		function patternDataUpdateFORAC() {
 			gestures = new Array();
 			// (Pattern * StrokeCount)[0] , (Pattern * StrokeCount)[1], ...
 			if(TextAction.SettingValueLanguage == TextAction.indexAll 
@@ -135,17 +134,13 @@ var recognitionTimer;
 			gestures["/"] = "3*1";
 		}
 		
-		patternDataUpdate();
-		
-		$("#language_button").click(function() {
-  			patternDataUpdate();
-  		});
+		patternDataUpdateFORAC();
 		
 		// color & width of stroke
 		var color = "#666666";
 		var strokeWidth = 4;
 
-		var element = this;   
+		var element = $('#_drawable');   
 		var graphics;					// must be initialize by turn
 		var position;					// must be initialize by turn
 		
@@ -174,8 +169,8 @@ var recognitionTimer;
 		var sector;
 		var timer;
 		
-		var canvasWidth = $("#drawarea").width();
-		var canvasHeight = $("#drawarea").height();
+		var canvasWidth = $("#_drawable").width();
+		var canvasHeight = $("#_drawable").height();
         
         
          
@@ -195,7 +190,7 @@ var recognitionTimer;
 
 		$(element).mousedown(function(event) {
 			// console.log("mousedown()");
-			clearInterval(recognitionTimer);
+			clearInterval(recognitionTimerFORAC);
 			recording = true;
 			
 			// graphics.clear();
@@ -209,7 +204,7 @@ var recognitionTimer;
             }
             
 			// check next char 
-			if(isNextChar(event.clientX,event.clientY)) {
+			if(isNextCharFORAC(event.clientX,event.clientY)) {
 					// display next character start point. red 
 					graphics.setStroke(strokeWidth);
 					graphics.setColor("#ff1493");
@@ -250,7 +245,7 @@ var recognitionTimer;
 					graphics.paint();
 					lastPositionX=msx;
 					lastPositionY=msy;
-					addMove(difx,dify);
+					addMoveFORAC(difx,dify);
 				}
 				
 				if(maxMoveX < event.clientX){
@@ -268,17 +263,14 @@ var recognitionTimer;
 			strokeCount[strokeCountIndex]++;
 			
 			recording = false;
-			recognitionTimer = setInterval(function () { 
-	       	 	recognitionStart();
-	       	 	clearInterval(recognitionTimer);	
-     	   	}, 500);
-     	   	
+			recognitionStartFORAC();
+
      	   	// console.log("up X : " + event.clientX + " up Y : " + event.clientY);
      	   	lastUpEventX = event.clientX;
 			lastUpEventY = event.clientY;
 		});
 		
-		function isNextChar(downX,donwY) {
+		function isNextCharFORAC(downX,donwY) {
 			if(lastDownEventX == 0 || lastDownEventY == 0){
 				return false;
 			}
@@ -289,13 +281,13 @@ var recognitionTimer;
 			}
 			
 			if(downX > lastDownEventX + (canvasWidth/5)) {
-				// console.log("** downX > lastDownEventX + (canvasWidth/5)");
+				// console.log("** downX > lastDownEventXFORAC + (canvasWidthFORAC/5)");
 				return true;
 			}
 			return false;
 		}
 		
-		function recognitionStart() {
+		function recognitionStartFORAC() {
 			// recording = false;
 			console.log("> moves = " + moves);
 			var movesArray = new Array();
@@ -340,7 +332,7 @@ var recognitionTimer;
 						matchStroke = matchData[1];
 						// console.log("matchStroke = "+ matchStroke);
 						// console.log("strokeCount = "+ strokeCount);
-						res = costLeven (matchData[0],movesArray[k]);
+						res = costLevenFORAC (matchData[0],movesArray[k]);
 						
 						if(res <= result_backup1) {
 							result_backup3 = result_backup2;
@@ -373,14 +365,8 @@ var recognitionTimer;
 				}
 				
 				all_letter += letter;
-				if(movesArray.length-1 == k) {
-				    $("#text_animation").html(all_letter);
-                    $("#text_animation").css("top", (firstY + lastUpEventY)/2);
-                    $("#text_animation").css("left", (firstX +lastUpEventX)/2);
-                    $("#text_animation").fadeIn(300).fadeOut(300);
-				}
-                
-                callbackfunction(letter,letter_backup1,letter_backup2,letter_backup3);
+
+                callbackfunctionFORAC(letter);
 			} 
 			
 			// initialize value
@@ -407,20 +393,20 @@ var recognitionTimer;
 			graphics.paint();
 		}
 		
-		function addMove(dx,dy) {
+		function addMoveFORAC(dx,dy) {
 			var angle = Math.atan2(dy,dx)+sectorRad/2;
 			if (angle<0) angle+=Math.PI*2;
 			var no = Math.floor(angle/(Math.PI*2)*100);
 			moves.push(anglesMap[no]);	
 		}
 
-		function difAngle(a,b) {
+		function difAngleFORAC(a,b) {
 			var dif =Math.abs(a-b);
 			if (dif>8/2)dif=8-dif;
 			return dif;
 		}
 
-		function fill2DTable(w,h,f){
+		function fill2DTableFORAC(w,h,f){
 			var o = new Array(w);
 			for (var x=0;x<w;x++){
 				o[x]=new Array(h);
@@ -430,17 +416,17 @@ var recognitionTimer;
 		}
 		
 		// a : pattern data , b : input character pattern		
-		function costLeven(a,b){
+		function costLevenFORAC(a,b){
 			if (a[0]==-1){
 				return b.length==0 ? 0 : 100000;
 			}
 
-			var d = fill2DTable(a.length+1,b.length+1,0);
+			var d = fill2DTableFORAC(a.length+1,b.length+1,0);
 			var w = d.slice();
 
 			for (var x=1;x<=a.length;x++){
 				for (var y=1;y<b.length;y++){
-					d[x][y]=difAngle(a[x-1],b[y-1]);
+					d[x][y]=difAngleFORAC(a[x-1],b[y-1]);
 				}
 			}
 
