@@ -1,5 +1,7 @@
-﻿var defaultGesture = '?/c/m/>/y/!/@/=';
+﻿var defaultGesture = '?/c/m';
 var loadGesture = '';
+var newGuesture = ''; // key is savedGesture
+var LaunchGesture = ''; // key is savedLaunchGesture
 var gesture;
 var indexArray = [ "naver", "daum", "nate"];
 
@@ -56,7 +58,12 @@ function loadEngineText() {
 }
 
 function getGesture() {
-	if(localStorage.getItem('savedGesture')!=null)loadGesture = localStorage.getItem('savedGesture');
+	
+	if(localStorage.getItem('savedGesture')!=null) {
+		newGuesture = localStorage.getItem('savedGesture');
+		LaunchGesture = localStorage.getItem('savedLaunchGesture');
+		loadGesture = defaultGesture + newGuesture;
+	}
 	else loadGesture = defaultGesture;
 	gesture = loadGesture.split('/');
 	var output = '';

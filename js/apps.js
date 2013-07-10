@@ -8,6 +8,27 @@ function getApps() {
 	return apps;
 }
 
+function getLaunch(data) {
+	var appMgr = navigator.mozApps.mgmt;
+	appMgr.getAll().onsuccess = function onsuccess(event) {
+		var apps = event.target.result;
+		apps.forEach(function eachApp(app) {
+			appsByOrigin[app.origin] = app;
+
+		});
+		var i = 0;
+		var arraylist = getApps();
+		while(i < arraylist.length) {
+			if(arraylist[i].manifest.name == data) {
+				arraylist[i].launch();
+				break;
+			}
+			i++;
+		}
+		
+	};
+}
+
 function initApps() {
 	// need permission --> "webapps-manage":{}
 	var appMgr = navigator.mozApps.mgmt;
@@ -51,10 +72,13 @@ function addCommand() {
 	$('#_save').click(function() {
 		var selectedApp = document.getElementById('selected_app').innerHTML;
 		if (selectedApp != "" && $("#_gesture").val().length != 0) {
-			defaultGesture += "/" + $("#_gesture").val();
+			newGuesture += "/" + $("#_gesture").val();
+			//LaunchGesture += "/" + document.getElementById('selected_app').innerHTML;
+			LaunchGesture = "";
 			$("#_gesture").val("");
 			$('#setting-add-command').hide();
-			localStorage.setItem('savedGesture', defaultGesture);
+			localStorage.setItem('savedGesture', newGuesture);
+			localStorage.setItem('savedLaunchGesture', LaunchGesture);
 			getGesture();
 		}
 	});
