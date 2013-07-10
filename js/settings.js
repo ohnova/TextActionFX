@@ -1,5 +1,5 @@
 ﻿var defaultGesture = '?/c/m/>/y/!/@/=';
-var savedGesture = '';
+var loadGesture = '';
 var gesture;
 var indexArray = [ "naver", "daum", "nate"];
 
@@ -22,7 +22,8 @@ function loadLocalStorage() {
 		TextAction.searchEngine = index;
 		document.getElementById('engine').options[index].selected = 'selected';
 	}
-
+	
+	
 }
 
 function saveLocalStorageForWordSuggestion() {
@@ -51,23 +52,28 @@ function saveLocalStorageForEngine() {
 
 function loadEngineText() {
 	var index = Number(localStorage.getItem('engine'));
-	/*if(index == 0) document.getElementById('selected-engine').innerHTML = "naver";
-	else if(index == 1) document.getElementById('selected-engine').innerHTML = "daum";
-	else if(index == 2) document.getElementById('selected-engine').innerHTML = "nate";*/
 	document.getElementById('selected-engine').innerHTML = indexArray[index];	
 }
 
 function getGesture() {
-	gesture = defaultGesture.split('/');
+	if(localStorage.getItem('savedGesture')!=null)loadGesture = localStorage.getItem('savedGesture');
+	else loadGesture = defaultGesture;
+	gesture = loadGesture.split('/');
 	var output = '';
-	
-	//output += '<ul>';
+
 	for(var i=0;i<gesture.length;i++) {
 		output += '<li>'+ gesture[i] +'</li>';
 	}
-	//output += '</ul>'
+
 	
 	document.getElementById('command-content').innerHTML = output;
+	$('#setting-add-command').hide();
+	$('#add-command').click(function() {
+		$('#setting-add-command').show();
+		addCommand();
+		
+	});
+
 }
 
 function linkEngineSelect() {
@@ -78,23 +84,20 @@ function linkEngineSelect() {
 }
 
 function showTutorial() {
-	//$('#tutorial_dialog').hide();
 	$('#tutorial_title').click(function() {
-
 		document.getElementById('tutorial_next').innerHTML = 'Next';
 		$('#tutorial_dialog').show();	
 		$('#tutorial_page1').show();
 		$('#tutorial_page2').hide();
 	});
-	
-	
+		
 	$('#setting-textaction-guide').click(function() {
-
 		document.getElementById('tutorial_next').innerHTML = 'Next';
 		$('#tutorial_dialog').show();	
 		$('#tutorial_page1').show();
 		$('#tutorial_page2').hide();
 	});
+	
 	$('#tutorial_prev').click(function() {
 		if(document.getElementById('tutorial_next').innerHTML == 'Done') {
 			document.getElementById('tutorial_next').innerHTML = 'Next';
@@ -104,6 +107,7 @@ function showTutorial() {
 			$('#tutorial_dialog').hide();
 		}
 	});
+	
 	$('#tutorial_next').click(function() {
 		if(document.getElementById('tutorial_next').innerHTML == 'Done') {
 			$('#tutorial_dialog').hide();
@@ -112,7 +116,6 @@ function showTutorial() {
 			$('#tutorial_page1').hide();
 			$('#tutorial_page2').show();
 		}
-
 	});
 
 }
@@ -126,19 +129,16 @@ function loadWordSuggestions() {
 	});
 }
 window.onload = function() {
+	
 	if(window.localStorage) {
-		
 		loadLocalStorage();		
-		
 		document.getElementById('wordsuggestion').onclick = saveLocalStorageForWordSuggestion;
 		document.getElementById('engine').onchange = saveLocalStorageForEngine;
 	} else {
 		alert('fail to save settings');
 	}
 	
-
 	linkEngineSelect();
-	
 	getGesture();
 	loadEngineText();
 	showTutorial();
