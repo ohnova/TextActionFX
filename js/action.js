@@ -119,6 +119,7 @@ function actionCheck(data) {
                 }
             });
         }
+        actionApplication(data);
     }
     // __2. check last char
     if(data.length > 0) {
@@ -147,6 +148,24 @@ function actionCheck(data) {
             actionSMS(data);
         }
     }
+    
+}
+
+function actionApplication(data) {
+	var gesture = localStorage.getItem('savedGesture').split('/');
+	var launch = localStorage.getItem('savedLaunchGesture').split('/');
+	
+//	gesture = gesture.split('/');
+//	launch = gesture.split('/');
+	
+	var count = 0;
+	while(count < gesture.length) {
+		if(gesture[count] == data) {
+			getLaunch(launch[count]);
+			break;
+		}
+		count ++;
+	}
 }
 
 function actionSMS(data) {
