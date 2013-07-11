@@ -154,10 +154,7 @@ function actionCheck(data) {
 function actionApplication(data) {
 	var gesture = localStorage.getItem('savedGesture').split('/');
 	var launch = localStorage.getItem('savedLaunchGesture').split('/');
-	
-//	gesture = gesture.split('/');
-//	launch = gesture.split('/');
-	
+
 	var count = 0;
 	while(count < gesture.length) {
 		if(gesture[count] == data) {
