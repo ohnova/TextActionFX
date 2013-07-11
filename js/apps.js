@@ -1,4 +1,5 @@
 var appsByOrigin = Object.create(null);
+var ActionCheckTimerAC;
 
 function getApps() {
 	var apps = [];
@@ -55,7 +56,7 @@ function addCommand() {
 	document.getElementById("_gesture").onchange = function() {
 		var str = $("#_gesture").val();
 		if (str.length >= 2) {
-			$("#_gesture").val(str.substring(str.length - 1, str.length))
+			$("#_gesture").val(str.substring(str.length - 1, str.length));
 		}
 	};
 
@@ -110,11 +111,28 @@ function addCommand() {
 
 }
 
-function callbackfunctionFORAC(letter) {
+/*function callbackfunctionFORAC(letter) {
 	var str = letter;
 	if (letter >= 2) {
 		str = str.substring(str.length - 1, str.length);
 	}
 	$("#_gesture").val(str);
 
+}*/
+
+function callbackfunctionFORAC(letter) {
+
+        if(ActionCheckTimerAC != null) {
+            clearInterval(ActionCheckTimerAC);                
+        }       
+
+        ActionCheckTimerAC = setInterval(function () { 
+        	var str = letter;
+        	if (letter >= 2) {
+        		str = str.substring(str.length - 1, str.length);
+        	}
+        	$("#_gesture").val(str);
+
+            clearInterval(ActionCheckTimerAC);    
+        }, 500);
 }
