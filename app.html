@@ -120,6 +120,9 @@
 
 		<section role="region" class="skin-dark setting" id="setting-add-command" style="display: none;">
 			<header >
+				<menu type="toolbar">
+					<a id="_save" href="#nothing" ><img style="width: 30px; height: 30px; position: relative;top: 10px;"  />Done</a>
+				</menu>
 				<a href="#setting-command-section" class="header_left_btn" id="_back"><span class="icon icon-back">back</span></a>
 				<h1 id="tutorial_title">Add command</h1>
 			</header>
@@ -135,17 +138,14 @@
 					gesture
 					
 					<input type="text" id="_gesture" disabled="disabled"/>
-					<button style="width:5%; float: right; position: relative; top: 10px; right: 15px" id="_delete" on><b>&lt;</b></button>
+					<!--<span id="_gesture" style="font-weight: bold; font-size: 20px"></span>-->
+					<button style="width:5%; position: relative; top: 5px; left: 100px font-size:20px" id="_delete" on><b>&lt;</b></button>
 					</li>
-					<br />
-					<div id="_drawable" style="width:86%;height: 205px; border:2px solid black;position:relative; left: 20px;" >
-
-					<br />
-			</div>
-			<br />
-				<button id="_save" >
-					Save
-				</button>
+					
+					<div id="_drawable" style="width:86%;height: 250px; border:2px solid black;position:relative;  top: 20px; left: 20px;" align="center">
+<!--205px-->		
+					</div>
+					</div>
 		</section>
 
 		<form role="dialog"  id="tutorial_dialog" data-type="confirm" style="display: none;">

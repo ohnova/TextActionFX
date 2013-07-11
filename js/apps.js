@@ -72,6 +72,14 @@ function addCommand() {
 	$('#_save').click(function() {
 		var selectedApp = document.getElementById('selected_app').innerHTML;
 		if (selectedApp != "" && $("#_gesture").val().length != 0) {
+			var gesture = getAllGesture();
+			var i = 0;
+			while(i < gesture.length) {
+				// check gesture
+				if($("#_gesture").val() == gesture[i])return ;
+				i++;
+			}
+
 			newGuesture += "/" + $("#_gesture").val();
 			LaunchGesture += "/" + document.getElementById('selected_app').innerHTML;
 			

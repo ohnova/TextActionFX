@@ -34,7 +34,7 @@ var recognitionTimerFORAC;
   $.fn.fancygesturesFORAC = function(callbackfunctionFORAC){   
 		var gestures = new Array();
 		
-		function patternDataUpdateFORAC() {
+		function patternDataUpdate() {
 			gestures = new Array();
 			// (Pattern * StrokeCount)[0] , (Pattern * StrokeCount)[1], ...
 			if(TextAction.SettingValueLanguage == TextAction.indexAll 
@@ -134,7 +134,7 @@ var recognitionTimerFORAC;
 			gestures["/"] = "3*1";
 		}
 		
-		patternDataUpdateFORAC();
+		patternDataUpdate();
 		
 		// color & width of stroke
 		var color = "#666666";
@@ -204,7 +204,7 @@ var recognitionTimerFORAC;
             }
             
 			// check next char 
-			if(isNextCharFORAC(event.clientX,event.clientY)) {
+			if(isNextChar(event.clientX,event.clientY)) {
 					// display next character start point. red 
 					graphics.setStroke(strokeWidth);
 					graphics.setColor("#ff1493");
@@ -245,7 +245,7 @@ var recognitionTimerFORAC;
 					graphics.paint();
 					lastPositionX=msx;
 					lastPositionY=msy;
-					addMoveFORAC(difx,dify);
+					addMove(difx,dify);
 				}
 				
 				if(maxMoveX < event.clientX){
@@ -263,14 +263,14 @@ var recognitionTimerFORAC;
 			strokeCount[strokeCountIndex]++;
 			
 			recording = false;
-			recognitionStartFORAC();
+			recognitionStart();
 
      	   	// console.log("up X : " + event.clientX + " up Y : " + event.clientY);
      	   	lastUpEventX = event.clientX;
 			lastUpEventY = event.clientY;
 		});
 		
-		function isNextCharFORAC(downX,donwY) {
+		function isNextChar(downX,donwY) {
 			if(lastDownEventX == 0 || lastDownEventY == 0){
 				return false;
 			}
@@ -281,13 +281,13 @@ var recognitionTimerFORAC;
 			}
 			
 			if(downX > lastDownEventX + (canvasWidth/5)) {
-				// console.log("** downX > lastDownEventXFORAC + (canvasWidthFORAC/5)");
+				// console.log("** downX > lastDownEventX + (canvasWidth/5)");
 				return true;
 			}
 			return false;
 		}
 		
-		function recognitionStartFORAC() {
+		function recognitionStart() {
 			// recording = false;
 			console.log("> moves = " + moves);
 			var movesArray = new Array();
@@ -332,7 +332,7 @@ var recognitionTimerFORAC;
 						matchStroke = matchData[1];
 						// console.log("matchStroke = "+ matchStroke);
 						// console.log("strokeCount = "+ strokeCount);
-						res = costLevenFORAC (matchData[0],movesArray[k]);
+						res = costLeven (matchData[0],movesArray[k]);
 						
 						if(res <= result_backup1) {
 							result_backup3 = result_backup2;
@@ -393,20 +393,20 @@ var recognitionTimerFORAC;
 			graphics.paint();
 		}
 		
-		function addMoveFORAC(dx,dy) {
+		function addMove(dx,dy) {
 			var angle = Math.atan2(dy,dx)+sectorRad/2;
 			if (angle<0) angle+=Math.PI*2;
 			var no = Math.floor(angle/(Math.PI*2)*100);
 			moves.push(anglesMap[no]);	
 		}
 
-		function difAngleFORAC(a,b) {
+		function difAngle(a,b) {
 			var dif =Math.abs(a-b);
 			if (dif>8/2)dif=8-dif;
 			return dif;
 		}
 
-		function fill2DTableFORAC(w,h,f){
+		function fill2DTable(w,h,f){
 			var o = new Array(w);
 			for (var x=0;x<w;x++){
 				o[x]=new Array(h);
@@ -416,17 +416,17 @@ var recognitionTimerFORAC;
 		}
 		
 		// a : pattern data , b : input character pattern		
-		function costLevenFORAC(a,b){
+		function costLeven(a,b){
 			if (a[0]==-1){
 				return b.length==0 ? 0 : 100000;
 			}
 
-			var d = fill2DTableFORAC(a.length+1,b.length+1,0);
+			var d = fill2DTable(a.length+1,b.length+1,0);
 			var w = d.slice();
 
 			for (var x=1;x<=a.length;x++){
 				for (var y=1;y<b.length;y++){
-					d[x][y]=difAngleFORAC(a[x-1],b[y-1]);
+					d[x][y]=difAngle(a[x-1],b[y-1]);
 				}
 			}
 
