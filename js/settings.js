@@ -2,7 +2,7 @@
 var loadGesture = '';
 var newGuesture = ''; // key is savedGesture
 var LaunchGesture = ''; // key is savedLaunchGesture
-var gesture;
+
 var indexArray = [ "naver", "daum", "nate"];
 
 function loadLocalStorage() {
@@ -56,9 +56,8 @@ function loadEngineText() {
 	var index = Number(localStorage.getItem('engine'));
 	document.getElementById('selected-engine').innerHTML = indexArray[index];	
 }
-
-function getGesture() {
-	
+function getAllGesture() {
+	var gesture = '';
 	if(localStorage.getItem('savedGesture')!=null) {
 		newGuesture = localStorage.getItem('savedGesture');
 		LaunchGesture = localStorage.getItem('savedLaunchGesture');
@@ -66,6 +65,13 @@ function getGesture() {
 	}
 	else loadGesture = defaultGesture;
 	gesture = loadGesture.split('/');
+	
+	return gesture;
+}
+function getGesture() {
+	
+	var gesture = getAllGesture();
+
 	var output = '';
 
 	for(var i=0;i<gesture.length;i++) {
