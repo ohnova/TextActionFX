@@ -6,6 +6,7 @@
 	"installs_allowed_from": ["*"],
 	"type": "certified",
 	"permissions": {
+		"webapps-manage":{},
     	"systemXHR": {}
 	},
 	"icons": {

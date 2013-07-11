@@ -25,8 +25,11 @@
  
 		<script type="text/javascript" defer src="js/textaction.js"></script>
 		<script type="text/javascript" defer src="js/jquery.fancygestures.js"></script>
+		<script type="text/javascript" defer src="js/jquery.fancygesturesFORAC.js"></script>
 		<script type="text/javascript" defer src="js/action.js"></script>
 		<script type="text/javascript" defer src="js/settings.js"></script>
+		<script type="text/javascript" defer src="js/apps.js"></script>
+
 	</head>
 	<body role="application" >
  
@@ -89,12 +92,11 @@
 				</li>
 				<li>
 					<!--<span id="setting-word-suggestion" class="setting_list_item setting_suggestion">WorD SuggestionS</span> -->
-					
-					<a href="#nothing" id="setting_wordsuggestion"alt="return false;">Word Suggestions
-					<label>
-					<input type="checkbox" data-type="switch" id="wordsuggestion" >
-					<span></span> </label></a>
-				
+
+					<a href="#nothing" id="setting_wordsuggestion">Word Suggestions <label>
+						<input type="checkbox" data-type="switch" id="wordsuggestion" >
+						<span></span> </label></a>
+
 				</li>
 				<li>
 					<!--<a href="#setting-guide-section" id="setting-textaction-guide" class="setting_list_item setting_guide">TextAction Guide</a>-->
@@ -106,26 +108,46 @@
 		
 		<section role="region" id="setting-command-section"  class="skin-dark setting" >
 			<header>
+				<menu type="toolbar">
+					<a id="add-command" href="#setting-add-command" ><img style="width: 30px; height: 30px; position: relative;top: 10px;" src="style/res/icons/add.png" /></a>
+				</menu>
 				<a href="#setting-section" class="header_left_btn"><span class="icon icon-back">back</span></a>
-				<h1>TextAction Command</h1>
+				<h1>Command setting</h1>
 			</header>
 			<div id="command-content" style="height:418px; overflow:auto;">
 			</div>
 		</section>
-	<!--	
-			<header>
-				<a href="#setting-section" class="header_left_btn"><span class="icon icon-back">back</span></a>
-				<h1>TextAction Guide</h1>
+
+		<section role="region" class="skin-dark setting" id="setting-add-command" style="display: none;">
+			<header >
+				<menu type="toolbar">
+					<a id="_save" href="#nothing" ><img style="width: 30px; height: 30px; position: relative;top: 10px;"  />Done</a>
+				</menu>
+				<a href="#setting-command-section" class="header_left_btn" id="_back"><span class="icon icon-back">back</span></a>
+				<h1 id="tutorial_title">Add command</h1>
 			</header>
-			<div id="guide-content" style="height:418px; overflow:auto;">
-				<div>
-					Coming Soon...
-				</div>
-				<a href="#setting-section" class="header_left_btn"><button id="guide_done">Done</button></a>
-			</div>
+			<div>
+				<li>
+					<a href="#nothing" id="_link_add_command"> Application
+						<select id="app_info" style="width: 10%">
+							
+					</select> <span id="selected_app" style="font-weight: bold; font-size: 10px"></span> </a>
+					</li>
+					
+					<li>
+					gesture
+					
+					<input type="text" id="_gesture" disabled="disabled"/>
+					<!--<span id="_gesture" style="font-weight: bold; font-size: 20px"></span>-->
+					<button style="width:5%; position: relative; top: 5px; left: 100px font-size:20px" id="_delete" on><b>&lt;</b></button>
+					</li>
+					
+					<div id="_drawable" style="width:86%;height: 250px; border:2px solid black;position:relative;  top: 20px; left: 20px;" align="center">
+<!--205px-->		
+					</div>
+					</div>
 		</section>
-		-->
- 
+
 		<form role="dialog"  id="tutorial_dialog" data-type="confirm" style="display: none;">
 			<section id="tutorial_page1">
 				<h1>TextAction Guide</h1>

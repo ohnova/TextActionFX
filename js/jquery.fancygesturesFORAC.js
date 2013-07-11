@@ -28,11 +28,10 @@ THE SOFTWARE.
 
 */
 
-var isWatingForNextInput = false;
-var recognitionTimer;
+var recognitionTimerFORAC;
 
 (function($){   
-  $.fn.fancygestures = function(callbackfunction){   
+  $.fn.fancygesturesFORAC = function(callbackfunctionFORAC){   
 		var gestures = new Array();
 		
 		function patternDataUpdate() {
@@ -137,15 +136,11 @@ var recognitionTimer;
 		
 		patternDataUpdate();
 		
-		$("#language_button").click(function() {
-  			patternDataUpdate();
-  		});
-		
 		// color & width of stroke
 		var color = "#666666";
 		var strokeWidth = 4;
 
-		var element = this;   
+		var element = $('#_drawable');   
 		var graphics;					// must be initialize by turn
 		var position;					// must be initialize by turn
 		
@@ -174,8 +169,8 @@ var recognitionTimer;
 		var sector;
 		var timer;
 		
-		var canvasWidth = $("#drawarea").width();
-		var canvasHeight = $("#drawarea").height();
+		var canvasWidth = $("#_drawable").width();
+		var canvasHeight = $("#_drawable").height();
         
         
          
@@ -195,7 +190,7 @@ var recognitionTimer;
 
 		$(element).mousedown(function(event) {
 			// console.log("mousedown()");
-			clearInterval(recognitionTimer);
+			clearInterval(recognitionTimerFORAC);
 			recording = true;
 			
 			// graphics.clear();
@@ -268,11 +263,8 @@ var recognitionTimer;
 			strokeCount[strokeCountIndex]++;
 			
 			recording = false;
-			recognitionTimer = setInterval(function () { 
-	       	 	recognitionStart();
-	       	 	clearInterval(recognitionTimer);	
-     	   	}, 500);
-     	   	
+			recognitionStart();
+
      	   	// console.log("up X : " + event.clientX + " up Y : " + event.clientY);
      	   	lastUpEventX = event.clientX;
 			lastUpEventY = event.clientY;
@@ -373,14 +365,8 @@ var recognitionTimer;
 				}
 				
 				all_letter += letter;
-				if(movesArray.length-1 == k) {
-				    $("#text_animation").html(all_letter);
-                    $("#text_animation").css("top", (firstY + lastUpEventY)/2);
-                    $("#text_animation").css("left", (firstX +lastUpEventX)/2);
-                    $("#text_animation").fadeIn(300).fadeOut(300);
-				}
-                
-                callbackfunction(letter,letter_backup1,letter_backup2,letter_backup3);
+
+                callbackfunctionFORAC(letter);
 			} 
 			
 			// initialize value
