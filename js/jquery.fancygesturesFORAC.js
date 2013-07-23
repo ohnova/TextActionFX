@@ -197,7 +197,7 @@ var recognitionTimerFORAC;
 			// graphics.paint();
 			
 			lastPositionX = event.clientX-position.left;
-            lastPositionY = event.clientY-position.top; 
+            lastPositionY = event.clientY+position.top-170; 
             if(firstX == 0) {
                 firstX = lastPositionX;
                 firstY = lastPositionY;
@@ -209,7 +209,7 @@ var recognitionTimerFORAC;
 					graphics.setStroke(strokeWidth);
 					graphics.setColor("#ff1493");
 					var msx = (event.clientX-position.left);
-					var msy = (event.clientY-position.top);
+					var msy = (event.clientY+position.top-170);
 					// console.log("lastPositionX : " + lastPositionX + " lastPositionY : " + lastPositionY);
 					graphics.fillArc(lastPositionX-5, lastPositionY-5,10,10,10,10);
 					graphics.paint();
@@ -230,7 +230,7 @@ var recognitionTimerFORAC;
 			// console.log("mousemove()");
 			if(recording == true) {
 				var msx = (event.clientX-position.left);
-				var msy = (event.clientY-position.top);
+				var msy = (event.clientY+position.top-170);
 				
 				var difx = (msx-lastPositionX);
 				var dify = (msy-lastPositionY);
